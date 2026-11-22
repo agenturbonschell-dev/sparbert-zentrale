@@ -9,3 +9,5 @@ data/*/raw/
 *.npy
 __pycache__/
 node_modules/
+templates/_build_*.html
+tools/node_modules

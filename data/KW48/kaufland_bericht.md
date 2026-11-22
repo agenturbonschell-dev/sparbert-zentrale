@@ -1,0 +1,63 @@
+# Prüfbericht Kaufland 2026-11-23 bis 2026-11-28
+
+17 Produkte gewählt aus 338 prüfbaren Angeboten.
+
+- [TITELSEITE] DELVERDE Ital. Teigwaren | 0,66 € (alt 1,89 €) -65% | Do. 26. – Sa. 28.11.
+- [TITELSEITE] VOLVIC Naturelle | 0,55 € (alt 1,35 €) -59% | Do. 26. – Sa. 28.11. | zzgl. 0,25 € Pfand
+- [TITELSEITE] KERRYGOLD Cheddar | 1,39 € (alt 2,99 €) -53% | Do. 26. – Sa. 28.11.
+- [TITELSEITE] DR. OETKER Bistro | 1,11 € (alt 2,29 €) -51% | Fr. 27. – Sa. 28.11.
+- [TITELSEITE] LANDLIEBE Pudding | 0,49 € (alt 0,99 €) -50% | Do. 26. – Sa. 28.11.
+- [FRISCH & ALLTAG] WEIHENSTEPHAN Butter oder Die Streichzarte | 1,15 € (alt 2,99 €) -61% | gültig bis Sa. 28.11. | mit Card, ohne 1,29 €
+- [FRISCH & ALLTAG] EHRMANN Almighurt | 0,99 € (alt 2,39 €) -58% | gültig bis Sa. 28.11. | mit Card, ohne 1,11 € | zzgl. 0,15 € Pfand
+- [FRISCH & ALLTAG] K-WERTSCHÄTZE Frischwurst-Aufschnitt aus eigener Herstellung | 0,79 € (alt 1,59 €) -50% | gültig bis Sa. 28.11.
+- [FRISCH & ALLTAG] FRICO Maasdam | 0,79 € (alt 1,59 €) -50% | gültig bis Sa. 28.11.
+- [GETRÄNKE] PFANNER Saft-Getränk | 0,99 € (alt 1,99 €) -50% | gültig bis Sa. 28.11. | mit Card, ohne 1,19 €
+- [GETRÄNKE] VALENSINA Fruchtsaft | 1,49 € (alt 2,49 €) -40% | gültig bis Sa. 28.11. | zzgl. 0,25 € Pfand
+- [SÜSSES & SNACKS] LORENZ Saltletts | 0,99 € (alt 2,29 €) -56% | gültig bis Sa. 28.11. | mit Card, ohne 1,19 €
+- [SÜSSES & SNACKS] LAMBERTZ Coco-Fleur, Balena oder Divina | 0,99 € (alt 1,99 €) -50% | gültig bis Sa. 28.11.
+- [SÜSSES & SNACKS] WEISS Fidelis Lebkuchen | 1,69 € (alt 3,29 €) -48% | gültig bis Sa. 28.11.
+- [SÜSSES & SNACKS] MILKA Schokolade | 2,59 € (alt 4,99 €) -48% | gültig bis Sa. 28.11.
+- [HAUSHALT & DROGERIE] VITAKRAFT Hundesnack | 1,49 € (alt 2,29 €) -34% | gültig bis Sa. 28.11.
+- [HAUSHALT & DROGERIE] L'ORÉAL PARIS Elvital Shampoo oder Spülung | 2,79 € (alt 3,99 €) -30% | gültig bis Sa. 28.11. | mit Card, ohne 2,99 €
+
+## Auffälligkeiten (nicht verwendet oder zu prüfen)
+-  Adventsgestecke: kein alter Preis
+-  Adventsgestecke: kein alter Preis
+-  Adventsgestecke: kein alter Preis
+-  Span. Orangen: kein alter Preis
+-  Rinderbäckchen: kein alter Preis
+- K-PURLAND Hackepeter/ Schweinemett XXL: kein alter Preis
+-  Schweine-Nuggets XXL: kein alter Preis
+- K-PURLAND Schweinefilet: kein alter Preis
+- K-PURLAND Roastbeef vom Jungbullen: kein alter Preis
+- K-PURLAND Entrecôte: kein alter Preis
+- K-PURLAND Rinderbraten XXL: kein alter Preis
+- K-PURLAND WERTSCHÄTZE Burgunder-Braten: kein alter Preis
+- K-PURLAND Rinderfilet am Stück: kein alter Preis
+-  Hirschbraten/-gulasch: kein alter Preis
+- K-PURLAND Putenhacksteaks XXL: kein alter Preis
+- CEDROB Poln. Ente: kein alter Preis
+- FRY 'N FISH Fischfiguren: kein alter Preis
+- KIDS WORLD Maxi-Snack: kein alter Preis
+- ESCAL Garnelen- oder Fisch-Snack: kein alter Preis
+-  Mini-Pizza Sucuk: kein alter Preis
+-  Sternberliner: kein alter Preis
+- K-CLASSIC Kristallzucker: kein alter Preis
+- EDUSCHO Kaffee: kein alter Preis
+- FERRERO Rocher: kein Preis
+- K-WINTER EDITION Mischbeutel: kein alter Preis
+- KOSKENKORVA Vodka: kein alter Preis
+- ARIEL Waschmittel: kein alter Preis
+- K-CLASSIC Toilettenpapier Soft: kein alter Preis
+- FEBREZE Mülleimer-Erfrischer: kein Preis
+- DOMESTOS WC-Stein Power 5: kein alter Preis
+- NIVEA Deo-Spray: kein alter Preis
+- EASYMAXX Stoffschrank: kein alter Preis
+- DENVER Karaoke-Mikrofon »KMS-30«: kein alter Preis
+- DENVER Karaoke-Mikrofon »KMS-30«: kein alter Preis
+- SILVERCREST® Saugroboter 2 in 1 mit Ladestation: kein alter Preis
+- EASYMAXX Stoffschrank: kein alter Preis
+-  Wave-Box ca. 58 l: kein alter Preis
+-  XXL-Thermo-Einkaufskorb: kein alter Preis
+- EASYMAXX Schuhregal faltbar: kein alter Preis
+- CASA SI Klapphocker »One Step«: kein alter Preis
