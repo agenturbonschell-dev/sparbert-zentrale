@@ -3,7 +3,7 @@
 import json,sys,random,datetime
 def load(p):return json.load(open(p,encoding='utf-8'))
 def make(retailer,data,variant=0,platform='ig'):
-    cfg=load('/home/user/sparbert/auto/retailers.json');R={r['id']:r for r in cfg['retailers']}[retailer]
+    cfg=load(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)),'retailers.json'));R={r['id']:r for r in cfg['retailers']}[retailer]
     prods=data['products'];von,bis=data['von'],data['bis']        # ISO-Datum, aus den Quelldaten
     d=lambda s:datetime.date.fromisoformat(s).strftime('%d.%m.')
     tag=R.get('handle_ig' if platform=='ig' else 'handle_tt')
