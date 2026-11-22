@@ -1,0 +1,11 @@
+out/
+build/
+assets/offers/
+assets/lidl/
+assets/off2/
+data/*/raw/
+*.mp4
+*.wav
+*.npy
+__pycache__/
+node_modules/

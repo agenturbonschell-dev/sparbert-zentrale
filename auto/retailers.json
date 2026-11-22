@@ -1,0 +1,14 @@
+{
+  "_hinweis": "handle = Instagram/TikTok-Name zum Verlinken. NICHT raten: bitte von dir bestätigen lassen (null = noch offen).",
+  "retailers": [
+    {"id":"kaufland","name":"Kaufland","handle_ig":null,"handle_tt":null,"source":"kaufland-official","card":"Kaufland Card","logo":"assets/logos/kaufland.png"},
+    {"id":"lidl","name":"Lidl","handle_ig":null,"handle_tt":null,"source":"lidl-prospekt","card":"Lidl Plus","logo":"assets/logos/lidl.png"},
+    {"id":"edeka","name":"Edeka","handle_ig":null,"handle_tt":null,"source":"kaufda","card":"Edeka-App","logo":null},
+    {"id":"penny","name":"Penny","handle_ig":null,"handle_tt":null,"source":"kaufda","card":"Penny-App","logo":null},
+    {"id":"netto","name":"Netto","handle_ig":null,"handle_tt":null,"source":"kaufda","card":"Netto-App","logo":null},
+    {"id":"rewe","name":"REWE","handle_ig":null,"handle_tt":null,"source":"kaufda","card":"REWE-App","logo":null},
+    {"id":"aldi","name":"Aldi","handle_ig":null,"handle_tt":null,"source":"kaufda","card":null,"logo":null}
+  ],
+  "hashtags_basis": ["#angebote","#angebotederwoche","#sparen","#prospekt","#supermarkt","#einkaufen","#schnäppchen","#sparbert"],
+  "hashtags_je_haendler": {"kaufland":["#kaufland"],"lidl":["#lidl","#lidlplus"],"edeka":["#edeka"],"penny":["#penny"],"netto":["#netto"],"rewe":["#rewe"],"aldi":["#aldi"]}
+}

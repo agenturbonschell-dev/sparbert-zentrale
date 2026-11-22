@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+"""Erzeugt Beschreibungstext + Hashtags je Video aus den Produktdaten. Nutzung: caption.py <haendler-id> <products.json> [variante]"""
+import json,sys,random,datetime
+def load(p):return json.load(open(p,encoding='utf-8'))
+def make(retailer,data,variant=0,platform='ig'):
+    cfg=load('/home/user/sparbert/auto/retailers.json');R={r['id']:r for r in cfg['retailers']}[retailer]
+    prods=data['products'];von,bis=data['von'],data['bis']        # ISO-Datum, aus den Quelldaten
+    d=lambda s:datetime.date.fromisoformat(s).strftime('%d.%m.')
+    tag=R.get('handle_ig' if platform=='ig' else 'handle_tt')
+    ref=('@'+tag.lstrip('@')) if tag else R['name']
+    top=sorted(prods,key=lambda p:-int(p.get('save','0').strip('-%') or 0))[:3]
+    hooks=[f"🔥 {R['name']}: Das sind die besten Angebote vom {d(von)} bis {d(bis)}!",
+           f"💰 Diese Woche bei {R['name']}: {top[0]['brand'].title()} {top[0]['name']} für {(top[0].get('card') or top[0]['price'])} €!",
+           f"🛒 Nicht verpassen! {R['name']}-Angebote {d(von)}–{d(bis)}"]
+    lines=[hooks[variant%len(hooks)],'']
+    for p in prods[:6]:
+        price=p.get('card') or p['price']; cond=f" (mit {R['card']})" if p.get('card') and R['card'] else ''
+        lines.append(f"• {p['brand'].title()} {p['name']}: {price} €{cond}")
+    lines+=['',f"📅 Gültig {d(von)} bis {d(bis)}",
+            f"Unbezahlte Werbung / Kostenlose Werbung für {ref}",
+            "Preise können je Markt abweichen. Angebote teils nur mit App/Karte oder an bestimmten Tagen.",'']
+    tags=cfg['hashtags_basis']+cfg['hashtags_je_haendler'][retailer]
+    return '\n'.join(lines)+' '.join(tags[:15])
+if __name__=='__main__':
+    print(make(sys.argv[1],load(sys.argv[2]),int(sys.argv[3]) if len(sys.argv)>3 else 0))
