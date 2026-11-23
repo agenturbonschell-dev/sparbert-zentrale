@@ -1,0 +1,177 @@
+{
+ "haendler": "rewe",
+ "von": "2026-11-23",
+ "bis": "2026-11-28",
+ "products": [
+  {
+   "sec": "TITELSEITE",
+   "brand": "MILKA",
+   "name": "Weihnachtsmann",
+   "unit": "je 45-g-Packung · versch. Sorten",
+   "price": "0,99",
+   "old": "1,89",
+   "save": "",
+   "img": "milka",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "oldLabel": "zuletzt"
+  },
+  {
+   "sec": "TITELSEITE",
+   "brand": "KINDER",
+   "name": "Country",
+   "unit": "je 9 × 23,5-g-Packung · auch Bueno",
+   "price": "1,99",
+   "old": "3,29",
+   "save": "",
+   "img": "bueno",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "oldLabel": "zuletzt"
+  },
+  {
+   "sec": "TITELSEITE",
+   "brand": "MILRAM",
+   "name": "Gewürzquark",
+   "unit": "je 185-g-Becher · versch. Sorten",
+   "price": "0,99",
+   "old": "",
+   "save": "",
+   "img": "milram",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "EHRMANN",
+   "name": "Almighurt",
+   "unit": "je 150-g-Becher · versch. Sorten",
+   "price": "0,44",
+   "old": "",
+   "save": "",
+   "img": "almighurt",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "KERRYGOLD",
+   "name": "Original Irische Butter",
+   "unit": "je 250-g-Packung · versch. Sorten",
+   "price": "1,59",
+   "old": "",
+   "save": "",
+   "img": "kerrygold",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "MÜLLER",
+   "name": "Milchreis",
+   "unit": "je 200-g-Becher · versch. Sorten",
+   "price": "0,49",
+   "old": "",
+   "save": "",
+   "img": "milchreis",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "MAGGI",
+   "name": "Ravioli in Tomatensauce",
+   "unit": "je 800-g-Dose",
+   "price": "1,99",
+   "old": "",
+   "save": "",
+   "img": "ravioli",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "GETRÄNKE",
+   "brand": "COCA-COLA · FANTA · SPRITE",
+   "name": "oder Mezzo Mix",
+   "unit": "je 12 × 1-l-Flaschen im Kasten",
+   "price": "11,99",
+   "old": "",
+   "save": "",
+   "img": "cola",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "note": "zzgl. 3,30 € Pfand"
+  },
+  {
+   "sec": "GETRÄNKE",
+   "brand": "PEPSI",
+   "name": "Cola · versch. Sorten",
+   "unit": "je 1,25-l-Flasche",
+   "price": "0,69",
+   "old": "",
+   "save": "",
+   "img": "pepsi",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "note": "zzgl. 0,25 € Pfand"
+  },
+  {
+   "sec": "GETRÄNKE",
+   "brand": "VOLVIC",
+   "name": "Touch oder Tee",
+   "unit": "je 1,5-l-Flasche · versch. Sorten",
+   "price": "1,19",
+   "old": "",
+   "save": "",
+   "img": "volvic",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "note": "zzgl. 0,25 € Pfand"
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "MARS",
+   "name": "Snickers oder Twix",
+   "unit": "je 5 × 50-g-Riegel",
+   "price": "1,79",
+   "old": "",
+   "save": "",
+   "img": "snickers",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "FUNNY-FRISCH",
+   "name": "Chipsfrisch ungarisch",
+   "unit": "je 215-g-Beutel",
+   "price": "1,99",
+   "old": "",
+   "save": "",
+   "img": "chipsfrisch",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "LINDT",
+   "name": "Lindor Milch",
+   "unit": "je 200-g-Packung",
+   "price": "4,99",
+   "old": "",
+   "save": "",
+   "img": "lindor",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "PRINGLES",
+   "name": "Sour Cream & Onion",
+   "unit": "je 200-g-Dose",
+   "price": "1,49",
+   "old": "",
+   "save": "",
+   "img": "pringles",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "HAUSHALT & DROGERIE",
+   "brand": "PERSIL",
+   "name": "Color Kraft-Gel",
+   "unit": "je 20-WL-Flasche",
+   "price": "4,99",
+   "old": "",
+   "save": "",
+   "img": "persil",
+   "valid": "Mo. 23. – Sa. 28.11."
+  }
+ ]
+}

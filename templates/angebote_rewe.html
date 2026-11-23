@@ -12,38 +12,193 @@ input{width:240px}
 <script>
 /* ===================== KONFIGURATION ===================== */
 const STORE={
-  name:'Lidl',
-  logo:'../assets/logos/lidl.png',                 // z.B. '../assets/logos/kaufland.png' -> erscheint automatisch auf der Tafel oben
+  name:'REWE',
+  logo:'../assets/logos/rewe.png',                  // erscheint automatisch auf der Tafel oben
 };
 const RIBBON='AKTUELLE ANGEBOTE';
-const DATE_TXT='gültig 23. – 28.11.2026';   // Lidl-Aktionsprospekt KW 48 (Ab Mo. 23.11. bis Sa. 28.11.)
-const CARDNAME='Lidl Plus', CARDCOL='#0050aa', CARDK='L';
-const CARDWITHOUT='ohne Plus', CARDONLY='nur mit Lidl Plus App';   // Texte der Karten-/App-Plakette (je Händler anpassen)
+const DATE_TXT='gültig 23. – 28.11.2026';   // REWE-Prospekt KW 48 (Mo. 23.11. bis Sa. 28.11.)
+const CARDNAME='REWE-App', CARDCOL='#cc071e', CARDK='R';   // REWE: keine Karten-/App-Preise, die Plakette wird nicht benutzt (kein Produkt hat das Feld card)
+const CARDWITHOUT='ohne App', CARDONLY='nur mit REWE-App';   // Texte der Karten-/App-Plakette (je Händler anpassen)
 const PER=3.4;             // Sekunden pro Produkt (ruhiges Tempo fürs Voice-over)  ->  Länge = Intro + Anzahl Produkte × PER
-// Quelle: offizielle Kaufland-Angebotsseite (filiale.kaufland.de/angebote), abgerufen am 20.11.2026; gültig laut Seite bis Sa. 21.11.2026
-// img = freigestelltes Produktbild (Kaufland-Bildserver); ohne img wird ein Cartoon-Symbol (icon) gezeichnet
-const PRODUCTS=[   // Quelle: Lidl-Aktionsprospekt 23.–28.11.2026 (KW 48, lidl.de). card = Preis mit Lidl Plus (Hauptpreis), price = Preis ohne Plus. UVP/Normalpreis wie im Prospekt.
-  {"sec": "TITELSEITE", "brand": "NUTELLA", "name": "Nuss-Nougat-Creme", "unit": "je 450-g-Glas · max. 3 pro Kunde", "price": "", "old": "3,99", "save": "-50%", "img": "nutella", "valid": "Mo. 23. – Mi. 25.11.", "card": "1,99", "oldLabel": "Normalpreis"},
-  {"sec": "TITELSEITE", "brand": "BAYERNKRONE", "name": "Butter", "unit": "je 250 g", "price": "0,99", "old": "2,49", "save": "-60%", "img": "butter", "valid": "Mo. 23. – Sa. 28.11.", "oldLabel": "UVP"},
-  {"sec": "TITELSEITE", "brand": "MÜLLER", "name": "Milchreis", "unit": "je 250-g-Becher", "price": "0,59", "old": "", "save": "-52%", "img": "milchreis", "valid": "Mo. 23. – Sa. 28.11.", "note": "Preisvorteil ggü. Standardpackung"},
-  {"sec": "FRISCH & ALLTAG", "brand": "LANDLIEBE", "name": "Joghurt", "unit": "je 500 g", "price": "1,11", "old": "2,29", "save": "-51%", "img": "landliebe", "valid": "Mo. 23. – Sa. 28.11.", "oldLabel": "UVP"},
-  {"sec": "FRISCH & ALLTAG", "brand": "LEERDAMMER", "name": "Käsescheiben XXL", "unit": "je 360-g-Packung", "price": "3,99", "old": "", "save": "-42%", "img": "leerdammer", "valid": "Mo. 23. – Sa. 28.11.", "note": "Preisvorteil ggü. Standardpackung"},
-  {"sec": "FRISCH & ALLTAG", "brand": "MIRACEL WHIP", "name": "Salatcreme", "unit": "je 500 ml", "price": "", "old": "2,65", "save": "-43%", "img": "miracel", "valid": "Mo. 23. – Sa. 28.11.", "card": "1,49", "oldLabel": "Normalpreis"},
-  {"sec": "FRISCH & ALLTAG", "brand": "MCCAIN", "name": "Golden Longs", "unit": "je 1 kg, tiefgekühlt", "price": "2,99", "old": "4,89", "save": "-38%", "img": "mccain", "valid": "Do. 26. – Sa. 28.11.", "oldLabel": "UVP"},
-  {"sec": "FRISCH & ALLTAG", "brand": "IGLO", "name": "Fischstäbchen", "unit": "je 352–450 g, tiefgekühlt", "price": "2,99", "old": "4,89", "save": "-38%", "img": "iglo", "valid": "Do. 26. – Sa. 28.11.", "oldLabel": "UVP"},
-  {"sec": "GETRÄNKE", "brand": "COCA-COLA · FANTA · SPRITE", "name": "oder Mezzo Mix", "unit": "je 1,25-l-Flasche", "price": "1,19", "old": "1,69", "save": "-29%", "img": "cola", "valid": "Mo. 23. – Sa. 28.11.", "oldLabel": "UVP", "note": "zzgl. 0,25 € Pfand"},
-  {"sec": "GETRÄNKE", "brand": "ARIZONA", "name": "Icetea XXL", "unit": "je 1,75-l-Flasche", "price": "1,39", "old": "", "save": "", "img": "arizona", "valid": "Mo. 23. – Sa. 28.11.", "note": "zzgl. 0,25 € Pfand"},
-  {"sec": "SÜSSES & SNACKS", "brand": "FUNNY-FRISCH", "name": "Chipsfrisch XXL", "unit": "je 215-g-Beutel", "price": "1,79", "old": "2,79", "save": "-35%", "img": "chipsfrisch", "valid": "Mo. 23. – Sa. 28.11.", "oldLabel": "UVP"},
-  {"sec": "SÜSSES & SNACKS", "brand": "ZOTT", "name": "Monte Snack", "unit": "je 232 g (8 Stück)", "price": "1,99", "old": "2,99", "save": "-33%", "img": "monte", "valid": "Do. 26. – Sa. 28.11.", "oldLabel": "UVP"},
-  {"sec": "SÜSSES & SNACKS", "brand": "MÖVENPICK", "name": "Eiscreme", "unit": "je 800–900 ml", "price": "1,79", "old": "3,99", "save": "-55%", "img": "moevenpick", "valid": "Do. 26. – Sa. 28.11.", "oldLabel": "UVP"},
-  {"sec": "SÜSSES & SNACKS", "brand": "RITTER SPORT", "name": "Knusperstück", "unit": "je 200 g", "price": "2,99", "old": "4,29", "save": "-30%", "img": "ritter", "valid": "Do. 26. – Sa. 28.11.", "oldLabel": "UVP", "note": "enthält Alkohol"},
-  {"sec": "HAUSHALT & FAMILIE", "brand": "PAMPERS", "name": "Feuchttücher", "unit": "je 480 Stück", "price": "8,75", "old": "13,49", "save": "-48%", "img": "pampers", "valid": "Do. 26. – Sa. 28.11.", "card": "6,99", "oldLabel": "UVP"},
+// Quelle: REWE-Prospekt "Dein Markt" KW 48 (kaufda.de, Gültig ab 23.11.2026)
+// img = freigestelltes Produktbild (assets/rewe/); ohne img wird ein Cartoon-Symbol (icon) gezeichnet
+const PRODUCTS=[
+ {
+  "sec": "TITELSEITE",
+  "brand": "MILKA",
+  "name": "Weihnachtsmann",
+  "unit": "je 45-g-Packung · versch. Sorten",
+  "price": "0,99",
+  "old": "1,89",
+  "save": "",
+  "img": "milka",
+  "valid": "Mo. 23. – Sa. 28.11.",
+  "oldLabel": "zuletzt"
+ },
+ {
+  "sec": "TITELSEITE",
+  "brand": "KINDER",
+  "name": "Country",
+  "unit": "je 9 × 23,5-g-Packung · auch Bueno",
+  "price": "1,99",
+  "old": "3,29",
+  "save": "",
+  "img": "bueno",
+  "valid": "Mo. 23. – Sa. 28.11.",
+  "oldLabel": "zuletzt"
+ },
+ {
+  "sec": "TITELSEITE",
+  "brand": "MILRAM",
+  "name": "Gewürzquark",
+  "unit": "je 185-g-Becher · versch. Sorten",
+  "price": "0,99",
+  "old": "",
+  "save": "",
+  "img": "milram",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "FRISCH & ALLTAG",
+  "brand": "EHRMANN",
+  "name": "Almighurt",
+  "unit": "je 150-g-Becher · versch. Sorten",
+  "price": "0,44",
+  "old": "",
+  "save": "",
+  "img": "almighurt",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "FRISCH & ALLTAG",
+  "brand": "KERRYGOLD",
+  "name": "Original Irische Butter",
+  "unit": "je 250-g-Packung · versch. Sorten",
+  "price": "1,59",
+  "old": "",
+  "save": "",
+  "img": "kerrygold",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "FRISCH & ALLTAG",
+  "brand": "MÜLLER",
+  "name": "Milchreis",
+  "unit": "je 200-g-Becher · versch. Sorten",
+  "price": "0,49",
+  "old": "",
+  "save": "",
+  "img": "milchreis",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "FRISCH & ALLTAG",
+  "brand": "MAGGI",
+  "name": "Ravioli in Tomatensauce",
+  "unit": "je 800-g-Dose",
+  "price": "1,99",
+  "old": "",
+  "save": "",
+  "img": "ravioli",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "GETRÄNKE",
+  "brand": "COCA-COLA · FANTA · SPRITE",
+  "name": "oder Mezzo Mix",
+  "unit": "je 12 × 1-l-Flaschen im Kasten",
+  "price": "11,99",
+  "old": "",
+  "save": "",
+  "img": "cola",
+  "valid": "Mo. 23. – Sa. 28.11.",
+  "note": "zzgl. 3,30 € Pfand"
+ },
+ {
+  "sec": "GETRÄNKE",
+  "brand": "PEPSI",
+  "name": "Cola · versch. Sorten",
+  "unit": "je 1,25-l-Flasche",
+  "price": "0,69",
+  "old": "",
+  "save": "",
+  "img": "pepsi",
+  "valid": "Mo. 23. – Sa. 28.11.",
+  "note": "zzgl. 0,25 € Pfand"
+ },
+ {
+  "sec": "GETRÄNKE",
+  "brand": "VOLVIC",
+  "name": "Touch oder Tee",
+  "unit": "je 1,5-l-Flasche · versch. Sorten",
+  "price": "1,19",
+  "old": "",
+  "save": "",
+  "img": "volvic",
+  "valid": "Mo. 23. – Sa. 28.11.",
+  "note": "zzgl. 0,25 € Pfand"
+ },
+ {
+  "sec": "SÜSSES & SNACKS",
+  "brand": "MARS",
+  "name": "Snickers oder Twix",
+  "unit": "je 5 × 50-g-Riegel",
+  "price": "1,79",
+  "old": "",
+  "save": "",
+  "img": "snickers",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "SÜSSES & SNACKS",
+  "brand": "FUNNY-FRISCH",
+  "name": "Chipsfrisch ungarisch",
+  "unit": "je 215-g-Beutel",
+  "price": "1,99",
+  "old": "",
+  "save": "",
+  "img": "chipsfrisch",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "SÜSSES & SNACKS",
+  "brand": "LINDT",
+  "name": "Lindor Milch",
+  "unit": "je 200-g-Packung",
+  "price": "4,99",
+  "old": "",
+  "save": "",
+  "img": "lindor",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "SÜSSES & SNACKS",
+  "brand": "PRINGLES",
+  "name": "Sour Cream & Onion",
+  "unit": "je 200-g-Dose",
+  "price": "1,49",
+  "old": "",
+  "save": "",
+  "img": "pringles",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "HAUSHALT & DROGERIE",
+  "brand": "PERSIL",
+  "name": "Color Kraft-Gel",
+  "unit": "je 20-WL-Flasche",
+  "price": "4,99",
+  "old": "",
+  "save": "",
+  "img": "persil",
+  "valid": "Mo. 23. – Sa. 28.11."
+ }
 ];
 const DUCKS=[   // Pose, Seite (-1 links / 1 rechts); bei Card-Angeboten steht Sparbert links, damit die Card-Plakette frei bleibt
   ['p2',-1],['p5',1],['p7',1],['p6',-1],['p8',1],['p1',1],['p4',-1],['p2',1],['p1',-1],['p2',-1],['p8',1],['p6',1],['p5',-1],['p7',-1],['p4',1],['p6',-1],['p2',1]
 ];
 /* ========================================================= */
-const INTRO=.6,TAIL=4.4,CARD_EXTRA=.5;   // Card-Angebote bleiben 0,5 s länger (Sprecher-Hinweis auf Lidl Plus)
+const INTRO=.6,TAIL=4.4,CARD_EXTRA=.5;   // Card-Angebote bleiben 0,5 s länger
 const START=[],LEN=[];{let a=INTRO;for(const p of PRODUCTS){START.push(a);const l=PER+(p.card?CARD_EXTRA:0);LEN.push(l);a+=l}}
 const OUT=START[START.length-1]+LEN[LEN.length-1];
 const DUR=OUT+TAIL;
@@ -339,7 +494,7 @@ document.getElementById('pl').onclick=()=>playing=!playing;
 document.getElementById('rs').onclick=()=>{Tm=0;playing=true};
 Promise.all([load('../assets/off/bg7.jpg'),STORE.logo?load(STORE.logo):Promise.resolve(null)]
  .concat(['p1','p2','p3','p4','p5','p6','p7','p8'].map(n=>load('../assets/off/hq6/'+n+'.png')))
- .concat([...new Set(PRODUCTS.filter(p=>p.img).map(p=>p.img))].map(n=>load('../assets/lidl/'+n+'.png').then(im=>({n,im}))))).then(async r=>{
+ .concat([...new Set(PRODUCTS.filter(p=>p.img).map(p=>p.img))].map(n=>load('../assets/rewe/'+n+'.png').then(im=>({n,im}))))).then(async r=>{
   S.BG=r[0];S.LOGO=r[1];S.P={};['p1','p2','p3','p4','p5','p6','p7','p8'].forEach((n,i)=>S.P[n]=r[2+i]);
   S.IMG={};r.slice(10).forEach(o=>S.IMG[o.n]=o.im);
   S.META={p3:{white:[60,1136,1612,1904]},p7:{white:[732,752,1536,1472]}};

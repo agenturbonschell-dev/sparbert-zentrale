@@ -1,0 +1,140 @@
+{
+ "haendler": "aldi_sued",
+ "von": "2026-11-23",
+ "bis": "2026-11-28",
+ "products": [
+  {
+   "sec": "TITELSEITE",
+   "brand": "GOURMET",
+   "name": "Gebackene Entenbrust",
+   "unit": "je 80-g-Packung, gekühlt",
+   "price": "1,11",
+   "old": "1,99",
+   "save": "-44%",
+   "img": "entenbrust",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "TITELSEITE",
+   "brand": "DR. OETKER",
+   "name": "Die Ofenfrische",
+   "unit": "je 390- bzw. 410-g-Packung, tiefgekühlt",
+   "price": "1,88",
+   "old": "3,69",
+   "save": "-49%",
+   "img": "ofenfrische",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "TITELSEITE",
+   "brand": "BARILLA",
+   "name": "Pesto",
+   "unit": "je 190- bzw. 200-g-Glas",
+   "price": "1,69",
+   "old": "3,49",
+   "save": "-51%",
+   "img": "pesto",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "MILSANI",
+   "name": "Käse für den Ofen",
+   "unit": "je 180-g-Packung, gekühlt",
+   "price": "1,79",
+   "old": "2,49",
+   "save": "-28%",
+   "img": "kaese",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "JACK'S FARM",
+   "name": "Chicken Stripes",
+   "unit": "je 400 g, tiefgekühlt",
+   "price": "2,99",
+   "old": "3,99",
+   "save": "-25%",
+   "img": "chicken",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "BELLASAN",
+   "name": "Vitareform Margarine",
+   "unit": "je 250 g",
+   "price": "0,59",
+   "old": "0,79",
+   "save": "-25%",
+   "img": "margarine",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "GETRÄNKE",
+   "brand": "COCA-COLA · FANTA · SPRITE",
+   "name": "oder Mezzo Mix",
+   "unit": "je 1,25-l-Flasche",
+   "price": "0,88",
+   "old": "",
+   "save": "",
+   "img": "cola",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "note": "zzgl. 0,25 € Pfand"
+  },
+  {
+   "sec": "GETRÄNKE",
+   "brand": "WESTMINSTER",
+   "name": "Ingwer-Tee",
+   "unit": "je 25 Beutel (45 g)",
+   "price": "0,89",
+   "old": "1,19",
+   "save": "-25%",
+   "img": "tee",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "HARIBO",
+   "name": "Fruchtgummi",
+   "unit": "je 160- bzw. 175-g-Packung",
+   "price": "0,65",
+   "old": "1,19",
+   "save": "-45%",
+   "img": "haribo",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "LU / OREO",
+   "name": "Mikado oder Kekse",
+   "unit": "je 75- bzw. 176-g-Packung",
+   "price": "1,29",
+   "old": "2,19",
+   "save": "-41%",
+   "img": "mikado",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "FERRERO",
+   "name": "Kinder Country",
+   "unit": "10 × 23,5 g = 235 g, 1 Riegel gratis",
+   "price": "2,39",
+   "old": "3,29",
+   "save": "-27%",
+   "img": "kindercountry",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "SUN SNACKS",
+   "name": "Salzbrezeln",
+   "unit": "je 250 g",
+   "price": "0,69",
+   "old": "0,89",
+   "save": "-22%",
+   "img": "brezeln",
+   "valid": "Mo. 23. – Sa. 28.11."
+  }
+ ]
+}
