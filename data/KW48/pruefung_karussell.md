@@ -68,3 +68,21 @@ FREIGABE C: ja
 FREIGABE A: nein – Rangbehauptung „Top 3“ nicht belegt
 FREIGABE B: nein – Caption „Kaufland nur mit Kaufland Card“ korrigieren
 FREIGABE C: ja
+
+## Nachprüfung A/B
+
+Geprüft nach Korrektur: alle 5 Kacheln von A und B (angesehen), caption.txt und sources.md beider Karussells, `auto/retailers.json`.
+
+| Prüfpunkt | Ergebnis |
+|---|---|
+| A: Rang/„Top 3“ | Kachel 1 lautet „3 Lidl-Angebote DER WOCHE“ / „3 starke Rabatte aus dem Lidl-Prospekt“, Caption „Drei Lidl-Angebote der Woche“. Weder in Kacheln noch in Caption oder sources.md eine Rangbehauptung („Top“ kommt nur im Ordnernamen vor, nicht im Inhalt). |
+| A: Preise und Bedingungen | unverändert: Nutella 1,99 € mit Lidl Plus (Normalpreis 3,99 €), nur Mo. 23.–Mi. 25.11., max. 3 pro Kunde; Mövenpick 1,79 € (UVP 3,99 €), nur Do. 26.–Sa. 28.11.; Landliebe 1,11 € (UVP 2,29 €), Mo. 23.–Sa. 28.11.; Übersichtskachel 5 stimmt. Kein abgeschnittener Text. |
+| B: Kaufland-Formulierung | Caption: „Kaufland 1,15 € mit Kaufland Card (1,29 € ohne).“ sources.md: 1,15 € (card) / 4,60 €/kg, ohne Karte 1,29 € = 5,16 €/kg. Kachel 4: „MIT KAUFLAND CARD 1,15 €“, „ohne Kaufland Card 1,29 €“, 5,16 €/kg ohne Card; Kachel 5: „mit Kaufland Card“. Korrekt. |
+| B: übrige Kacheln | unverändert: Lidl 0,99 € = 3,96 €/kg, Mo.–Sa.; Netto 0,99 € = 3,96 €/kg, nur Do. 26.–Sa. 28.11. (Kachel 3 und 5); Kaufland Platz 3 mit 4,60 €/kg. Kein abgeschnittener Text. |
+| Kennzeichnung | Kachel 1 und Caption beider Karussells: „Unbezahlte Werbung / Kostenlose Werbung für …“, Gültigkeit, „Preise können je Markt abweichen“ vorhanden. |
+| Hashtags | A: #lidl #angebote #angebotederwoche #sparen #lidlplus (5). B: #butter #angebote #angebotederwoche #sparen #preischeck (5). |
+| Handles | A: @lidlde. B: @lidlde, @netto_marken_discount, @kaufland. Alle laut `auto/retailers.json` (handle_ig); @spar.bert ist das eigene Konto. |
+| Hinweis (unverändert) | B: Netto läuft erst ab Do. 26.11.; spätester Postag Do. 26.11. (Regel 8). |
+
+FREIGABE A: ja – Titel und Caption ohne Rangbehauptung; Preise, Bedingungen, Kennzeichnung, 5 Hashtags und Handle in Ordnung.
+FREIGABE B: ja – Kaufland-Zeile korrekt („1,15 € mit Kaufland Card (1,29 € ohne)“) in Caption, sources.md und Kacheln; sonst unverändert und in Ordnung.
