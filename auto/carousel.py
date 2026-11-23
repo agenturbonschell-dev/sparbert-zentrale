@@ -402,7 +402,7 @@ def carousel_A(kw):
         summary.append(dict(who=who, what=f'{p["brand"].title()} {p["name"]}\n{p["valid"]}', val=euro(main)))
     pct = ", ".join(f'{p["brand"].title()} {p["save"]}' for p in ps)
     nut = ps[0]
-    src = f"""# Quellen: Lidl Top 3 der Woche
+    src = f"""# Quellen: Drei Lidl-Angebote der Woche
 
 Datei: `data/{kw}/lidl_products.json` (von {d["von"]}, bis {d["bis"]}; Prüfung: `data/{kw}/pruefung_lidl.md`).
 
@@ -419,12 +419,12 @@ Nutella: `card` 1,99 € ist Hauptpreis mit Lidl Plus; `price` ist leer (kein Pr
 Keine Berechnungen. Lidl-Handle `@lidlde` aus `auto/retailers.json`. Logo `assets/logos/lidl.png`, Freisteller `assets/lidl/`.
 """
     cap = caption(
-        "Lidl Top 3 der Woche: drei starke Rabatte aus dem Prospekt.\n"
+        "Drei Lidl-Angebote der Woche aus dem Prospekt.\n"
         f"Nutella nur mit Lidl Plus und nur bis Mi. 25.11., max. 3 pro Kunde.",
         ["lidl"],
         f"Gültig {valid_range(d)} (je Angebot teils kürzer, siehe Bilder)", "",
         ["#lidl", "#angebote", "#angebotederwoche", "#sparen", "#lidlplus"])
-    return dict(name="A_lidl_top3", kenn=kennzeichnung(["lidl"]), t1="Lidl Top 3", t2="DER WOCHE",
+    return dict(name="A_lidl_top3", kenn=kennzeichnung(["lidl"]), t1="3 Lidl-Angebote", t2="DER WOCHE",
                 t3="3 starke Rabatte aus dem Lidl-Prospekt. Bedingungen stehen bei jedem Preis.",
                 valid=f"Gültig {valid_range(d)} · Tage je Angebot", logos=[logo_of("lidl")],
                 tiles=tiles, sum_title="Die 3 Angebote im Überblick", summary=summary,
@@ -494,7 +494,7 @@ Logos `assets/logos/`, Freisteller: `assets/lidl/butter.png`, `assets/netto/butt
 """
     cap = caption(
         "Bestes Angebot der Woche: Butter. Preis-Check nach Grundpreis pro kg (je 250 g).\n"
-        "Lidl und Netto gleichauf. Netto nur Do. 26. – Sa. 28.11., Kaufland nur mit Kaufland Card.",
+        "Lidl und Netto gleichauf. Netto nur Do. 26. – Sa. 28.11., Kaufland 1,15 € mit Kaufland Card (1,29 € ohne).",
         hids, f"Gültig {valid_range(cand[0][1])} (Netto: Do. 26. – Sa. 28.11.)", "",
         ["#butter", "#angebote", "#angebotederwoche", "#sparen", "#preischeck"])
     names = ", ".join(RET[h]["name"] for h in hids)
