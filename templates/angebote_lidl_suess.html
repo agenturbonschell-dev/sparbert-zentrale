@@ -18,7 +18,7 @@ const STORE={
 const RIBBON='AKTUELLE ANGEBOTE';
 const DATE_TXT='gültig 23. – 28.11.2026';   // Lidl-Aktionsprospekt KW 48 (Ab Mo. 23.11. bis Sa. 28.11.)
 const CARDNAME='Lidl Plus', CARDCOL='#0050aa', CARDK='L';
-const PER=3.4;             // Sekunden pro Produkt (ruhiges Tempo fürs Voice-over)  ->  Länge = Intro + Anzahl Produkte × PER
+const PER=2.7;             // Sekunden pro Produkt (ruhiges Tempo fürs Voice-over)  ->  Länge = Intro + Anzahl Produkte × PER
 // Quelle: offizielle Kaufland-Angebotsseite (filiale.kaufland.de/angebote), abgerufen am 20.11.2026; gültig laut Seite bis Sa. 21.11.2026
 // img = freigestelltes Produktbild (Kaufland-Bildserver); ohne img wird ein Cartoon-Symbol (icon) gezeichnet
 const PRODUCTS=[   // Quelle: Lidl-Aktionsprospekt 23.–28.11.2026 (KW 48). Seiten mit „Bis zu -60 % sparen“ plus Süßwaren. card = Preis mit Lidl Plus (Hauptpreis)
@@ -40,7 +40,7 @@ const PRODUCTS=[   // Quelle: Lidl-Aktionsprospekt 23.–28.11.2026 (KW 48). Sei
 ];
 const DUCKS=[['p2',-1],['p5',1],['p7',1],['p6',-1],['p8',1],['p1',1],['p4',-1],['p2',1],['p1',-1],['p2',-1],['p8',1],['p6',1],['p5',-1],['p7',-1],['p4',1],['p6',-1]];
 /* ========================================================= */
-const INTRO=.6,TAIL=.9,CARD_EXTRA=.5;   // Card-Angebote bleiben 0,5 s länger (Sprecher-Hinweis auf die Kaufland Card)
+const INTRO=.6,TAIL=.9,CARD_EXTRA=.4;   // Card-Angebote bleiben 0,5 s länger (Sprecher-Hinweis auf die Kaufland Card)
 const START=[],LEN=[];{let a=INTRO;for(const p of PRODUCTS){START.push(a);const l=PER+(p.card?CARD_EXTRA:0);LEN.push(l);a+=l}}
 const DUR=START[START.length-1]+LEN[LEN.length-1]+TAIL;
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');

@@ -19,7 +19,7 @@ const RIBBON='AKTUELLE ANGEBOTE';
 const DATE_TXT='gültig 23. – 28.11.2026';   // ALDI-Nord-Prospekt KW 48 (Mo. 23.11. bis Sa. 28.11.)
 const CARDNAME='ALDI', CARDCOL='#00005f', CARDK='A';   // ALDI hat keine Karten-/App-Preise: im Datensatz kein card-Feld, Plakette bleibt ungenutzt
 const CARDWITHOUT='ohne App', CARDONLY='nur mit App';   // ungenutzt (ALDI Nord)
-const PER=3.4;             // Sekunden pro Produkt (ruhiges Tempo fürs Voice-over)  ->  Länge = Intro + Anzahl Produkte × PER
+const PER=2.7;             // Sekunden pro Produkt (ruhiges Tempo fürs Voice-over)  ->  Länge = Intro + Anzahl Produkte × PER
 const PRODUCTS=[
  {
   "sec": "TITELSEITE",
@@ -163,7 +163,7 @@ const DUCKS=[   // Pose, Seite (-1 links / 1 rechts); bei Card-Angeboten steht S
   ['p2',-1],['p5',1],['p7',1],['p6',-1],['p8',1],['p1',1],['p4',-1],['p2',1],['p1',-1],['p2',-1],['p8',1],['p6',1],['p5',-1],['p7',-1],['p4',1],['p6',-1],['p2',1]
 ];
 /* ========================================================= */
-const INTRO=.6,TAIL=4.4,CARD_EXTRA=.5;   // Card-Angebote bleiben 0,5 s länger (Sprecher-Hinweis auf die Karte)
+const INTRO=.6,TAIL=4.4,CARD_EXTRA=.4;   // Card-Angebote bleiben 0,5 s länger (Sprecher-Hinweis auf die Karte)
 const START=[],LEN=[];{let a=INTRO;for(const p of PRODUCTS){START.push(a);const l=PER+(p.card?CARD_EXTRA:0);LEN.push(l);a+=l}}
 const OUT=START[START.length-1]+LEN[LEN.length-1];
 const DUR=OUT+TAIL;

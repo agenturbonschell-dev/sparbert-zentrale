@@ -17,7 +17,7 @@ const STORE={
 };
 const RIBBON='AKTUELLE ANGEBOTE';
 const DATE_TXT='gültig 16. – 21.11.2026';   // Gültigkeit laut Kaufland-Prospekt (KW 47)
-const PER=3.4;             // Sekunden pro Produkt (ruhiges Tempo fürs Voice-over)  ->  Länge = Intro + Anzahl Produkte × PER
+const PER=2.7;             // Sekunden pro Produkt (ruhiges Tempo fürs Voice-over)  ->  Länge = Intro + Anzahl Produkte × PER
 // Quelle: offizielle Kaufland-Angebotsseite (filiale.kaufland.de/angebote), abgerufen am 20.11.2026; gültig laut Seite bis Sa. 21.11.2026
 // img = freigestelltes Produktbild (Kaufland-Bildserver); ohne img wird ein Cartoon-Symbol (icon) gezeichnet
 const WK='Fr. 20. – Sa. 21.11.', WE='Fr. 20. – Sa. 21.11.', WOCHE='gültig bis Sa. 21.11.', DO='Do. 19. – Sa. 21.11.';
@@ -44,7 +44,7 @@ const DUCKS=[   // Pose, Seite (-1 links / 1 rechts); bei Card-Angeboten steht S
   ['p2',-1],['p5',1],['p7',1],['p6',-1],['p8',1],['p1',1],['p4',-1],['p2',1],['p1',-1],['p2',-1],['p8',1],['p6',1],['p5',-1],['p7',-1],['p4',1],['p6',-1],['p2',1]
 ];
 /* ========================================================= */
-const INTRO=.6,TAIL=4.4,CARD_EXTRA=.5;   // TAIL = Abspann mit Call to Action (Folgen/Speichern/Kommentar)   // Card-Angebote bleiben 0,5 s länger (Sprecher-Hinweis auf die Kaufland Card)
+const INTRO=.6,TAIL=4.4,CARD_EXTRA=.4;   // TAIL = Abspann mit Call to Action (Folgen/Speichern/Kommentar)   // Card-Angebote bleiben 0,5 s länger (Sprecher-Hinweis auf die Kaufland Card)
 const START=[],LEN=[];{let a=INTRO;for(const p of PRODUCTS){START.push(a);const l=PER+(p.card?CARD_EXTRA:0);LEN.push(l);a+=l}}
 const OUT=START[START.length-1]+LEN[LEN.length-1];
 const DUR=OUT+TAIL;
