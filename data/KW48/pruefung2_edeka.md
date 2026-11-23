@@ -40,3 +40,18 @@ Gültigkeit laut API: alle 10 Angebote 23.11.2026 00:00 bis 28.11.2026 (Salat, F
 Alle Altpreise bis auf Nescafé (Abweichung 1) und alle Rabatte entsprechen Bild und API. Alle anderen Preise, App-Preise, Mengen, Tage stimmen. Abweichung 2 (Spaghetti) behauptet eine Sorte, die der Angebotstext nicht nennt.
 
 FREIGABE: nein – Nescafé-Altpreis 4,29 fälschlich als "UVP" gelabelt (Quelle: 30-Tage-Tiefstpreis/Normalpreis); "Spaghetti" im Angebot nur "Teigwaren, versch. Ausformungen"; Beschreibung ohne Fleischkäse-Einschränkung. Nach Korrektur erneut prüfen.
+
+## Nachprüfung
+
+Geprüft nur die Korrekturen.
+
+**JSON (data/KW48/edeka_products.json):** Nescafé `oldLabel` = "Normalpreis" (ok, entspricht REGULAR_PRICE/30-Tage-Tiefstpreis der Quelle). Teigwaren: Name "Teigwaren", unit "je 500 g · versch. Ausformungen" (ok, entspricht Angebotstext). Übrige UVP-Labels unverändert und laut Erstprüfung belegt.
+
+**Beschreibung (`python3 auto/caption.py edeka data/KW48/edeka_products.json 0`):** Kennzeichnung "Unbezahlte Werbung / Kostenlose Werbung für Edeka" vorhanden, kein erfundener @handle (retailers.json: null). Gültigkeit 23.11. bis 28.11. korrekt. "Preise können je Markt abweichen" vorhanden. 5 Hashtags (max. 5 ok). Fleischkäse mit "(nur in teilnehmenden Märkten)", App-Preise als "mit App". Alle Preise stimmen mit der Quelle überein. Mängel (a) und (b) aus der Erstprüfung behoben. Offen bleibt nur das frühere Nebenthema (c), die Preise ohne App stehen nicht in der Liste; die Preise ohne App stehen im Video, nicht kritisch.
+
+**Video-Template (templates/angebote_edeka.html):** Plakette "Preis mit App" / "ohne App" ist korrekt (CARDNAME='App'). Die Anzeige "Normalpreis 4,29 €" (oldLabel + Altpreis, durchgestrichen, Schrift 36 px) wäre sinnvoll und passt in die Breite. ABER: Das Template liest die JSON nicht, sondern enthält eine eigene eingebettete `PRODUCTS`-Liste, und diese wurde nicht korrigiert:
+- Zeile ca. 102: `"name": "Spaghetti"`, `"unit": "je 500-g-Beutel"` (statt "Teigwaren" / "je 500 g · versch. Ausformungen")
+- Zeile ca. 133 bzw. 145 (Nescafé): `"oldLabel": "UVP"` (statt "Normalpreis")
+Das gerenderte Video würde damit weiterhin die beiden gesperrten Fehler zeigen. Zusätzlich nennen Kommentare (Zeile 147, 152) noch "Edeka-App", sichtbar im Video nicht relevant.
+
+FREIGABE: nein – Video-Template enthält eigene, unkorrigierte PRODUCTS-Liste (Nescafé oldLabel "UVP", "Spaghetti"/"je 500-g-Beutel"); JSON und Beschreibung sind korrekt. Nach Angleichung des Templates an die JSON erneut prüfen.
