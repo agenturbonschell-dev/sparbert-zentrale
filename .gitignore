@@ -11,3 +11,11 @@ __pycache__/
 node_modules/
 templates/_build_*.html
 tools/node_modules
+
+# wöchentliche Produktbilder je Händler
+assets/aldi_nord/
+assets/aldi_sued/
+assets/netto/
+assets/rewe/
+assets/edeka/
+assets/penny/
