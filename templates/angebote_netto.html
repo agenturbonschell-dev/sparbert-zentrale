@@ -25,9 +25,9 @@ const PER=3.4;             // Sekunden pro Produkt (ruhiges Tempo fürs Voice-ov
 const PRODUCTS=[
  {
   "sec": "TITELSEITE",
-  "brand": "MELITTA",
+  "brand": "MELITTA KAFFEE",
   "name": "Auslese Klassisch",
-  "unit": "je 500 g Kaffee gemahlen · max. 4 pro Kunde",
+  "unit": "je 500 g · max. 4 pro Kunde",
   "price": "4,99",
   "old": "8,49",
   "save": "-47%",
@@ -89,7 +89,7 @@ const PRODUCTS=[
   "sec": "FRISCH & ALLTAG",
   "brand": "DR. OETKER",
   "name": "Ristorante Pizza",
-  "unit": "Doppelpack, je 640–820 g, tiefgekühlt",
+  "unit": "je 640–820 g · Doppelpack",
   "price": "3,49",
   "old": "6,98",
   "save": "-50%",
@@ -127,7 +127,7 @@ const PRODUCTS=[
   "sec": "GETRÄNKE",
   "brand": "MEßMER",
   "name": "Ländertee",
-  "unit": "je 40–50 g (20 Teebeutel)",
+  "unit": "je 40–50 g",
   "price": "1,49",
   "old": "2,39",
   "save": "-46%",
@@ -373,7 +373,7 @@ function drawCard(c,p,t,t0,t1,idx){
   c.restore();
   // Preis
   const pr=outBack(clamp((age-1.0)/.6));
-  const cs=p.card?.86:1;c.save();c.translate(PANEL.x+726,PANEL.y+(p.card?352:404));c.scale(pr*cs,pr*cs);c.rotate(-.04);
+  const cs=p.card?.86:.94;c.save();c.translate(PANEL.x+(p.card?726:712),PANEL.y+(p.card?368:404));c.scale(pr*cs,pr*cs);c.rotate(-.04);
   rr(c,-190,-92,380,184,34);c.fillStyle='#000';c.globalAlpha*=.25;c.fill();c.globalAlpha=clamp(k*1.6);
   c.save();c.translate(0,-8);rr(c,-190,-92,380,184,34);c.fillStyle=grad(c,-92,92,['#ff4a38','#c4160e']);c.fill();ink(c,9);
   c.fillStyle='rgba(255,255,255,.2)';c.beginPath();c.roundRect(-176,-84,352,50,24);c.fill();
@@ -384,8 +384,9 @@ function drawCard(c,p,t,t0,t1,idx){
   if(cent){stext(c,','+cent,x0+w1,-24,74,'#fff','left',.15)}
   stext(c,'€',x0+w1+w2+8,10,86,'#ffd23f','left',.14);
   c.restore();
-  if(p.old){stext(c,(p.oldLabel||'statt')+' '+p.old+' €',0,-122,36,'#fff','center',.22);
-    c.save();c.strokeStyle='#e8201a';c.lineWidth=7;c.beginPath();c.moveTo(-110,-120);c.lineTo(110,-124);c.stroke();c.restore()}
+  if(p.old){const lab=(p.oldLabel||'statt')+' ',full=lab+p.old+' €';stext(c,full,0,-122,36,'#fff','center',.22);
+    c.save();c.font=`900 36px ${FONT}`;const wf=c.measureText(full).width,wl=c.measureText(lab).width;   // Durchstreichung nur über dem Preis, nicht über dem Label
+    c.strokeStyle='#e8201a';c.lineWidth=7;c.beginPath();c.moveTo(-wf/2+wl-4,-120);c.lineTo(wf/2+4,-124);c.stroke();c.restore()}
   c.restore();
   {const ci2=outBack(clamp((age-.1)/.4));c.save();c.translate(PANEL.x+330,PANEL.y+56);c.scale(ci2,ci2);c.font=`900 21px ${FONT}`;const cw=c.measureText(p.sec).width+36;rr(c,-cw/2,-17,cw,34,17);c.fillStyle='#fff';c.fill();c.lineWidth=5;c.strokeStyle='#e8201a';c.stroke();c.fillStyle='#e8201a';c.textAlign='center';c.textBaseline='middle';c.fillText(p.sec,0,2);c.restore()}
   if(p.card){const ci=outBack(clamp((age-1.3)/.5));c.save();c.translate(PANEL.x+672,PANEL.y+490);c.scale(ci*.97,ci*.97);c.rotate(.015);
