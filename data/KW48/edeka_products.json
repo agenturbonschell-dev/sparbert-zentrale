@@ -1,0 +1,129 @@
+{
+ "haendler": "edeka",
+ "von": "2026-11-23",
+ "bis": "2026-11-28",
+ "products": [
+  {
+   "sec": "TITELSEITE",
+   "brand": "EDEKA",
+   "name": "Fleischkäse im Brötchen",
+   "unit": "je Stück · wahlweise mit Senf oder Ketchup",
+   "price": "1,50",
+   "old": "",
+   "save": "",
+   "img": "fleischkaese",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "note": "nur in teilnehmenden Märkten"
+  },
+  {
+   "sec": "TITELSEITE",
+   "brand": "LEERDAMMER",
+   "name": "Original Käsescheiben",
+   "unit": "je 140-g-Packung",
+   "price": "1,49",
+   "old": "2,69",
+   "save": "-52%",
+   "img": "leerdammer",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "card": "1,29",
+   "oldLabel": "UVP"
+  },
+  {
+   "sec": "TITELSEITE",
+   "brand": "WAGNER",
+   "name": "Die Backfrische Salami",
+   "unit": "je 320-g-Packung, tiefgekühlt",
+   "price": "1,99",
+   "old": "3,69",
+   "save": "-51%",
+   "img": "pizza",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "card": "1,79",
+   "oldLabel": "UVP"
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "IGLO",
+   "name": "Fischstäbchen",
+   "unit": "je 450-g-Packung, tiefgekühlt",
+   "price": "2,79",
+   "old": "4,89",
+   "save": "-49%",
+   "img": "iglo",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "card": "2,49",
+   "oldLabel": "UVP"
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "MÜLLER",
+   "name": "Froop Frucht auf Joghurt",
+   "unit": "je 150-g-Becher",
+   "price": "0,39",
+   "old": "0,79",
+   "save": "-50%",
+   "img": "froop",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "oldLabel": "UVP"
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "GUT&GÜNSTIG",
+   "name": "Blattsalat-Mischung",
+   "unit": "je 150-g-/200-g-Beutel",
+   "price": "0,85",
+   "old": "",
+   "save": "",
+   "img": "salat",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "GUT&GÜNSTIG",
+   "name": "Spaghetti",
+   "unit": "je 500-g-Beutel",
+   "price": "0,69",
+   "old": "",
+   "save": "",
+   "img": "spaghetti",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "GETRÄNKE",
+   "brand": "MÖVENPICK",
+   "name": "Edle Komposition Kaffee",
+   "unit": "je 500-g-Packung, gemahlen",
+   "price": "6,99",
+   "old": "8,99",
+   "save": "-27%",
+   "img": "moevenpick",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "card": "6,49",
+   "oldLabel": "UVP"
+  },
+  {
+   "sec": "GETRÄNKE",
+   "brand": "NESCAFÉ",
+   "name": "Gold Typ Cappuccino",
+   "unit": "je 140-g-/125-g-Packung",
+   "price": "2,22",
+   "old": "4,29",
+   "save": "-48%",
+   "img": "nescafe",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "oldLabel": "UVP"
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "NESTLÉ",
+   "name": "Smarties",
+   "unit": "je 120-g-/130-g-Rolle",
+   "price": "1,79",
+   "old": "2,79",
+   "save": "-35%",
+   "img": "smarties",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "oldLabel": "UVP"
+  }
+ ]
+}
