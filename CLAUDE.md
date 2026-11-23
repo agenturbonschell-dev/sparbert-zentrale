@@ -12,6 +12,9 @@ Wöchentliche Angebotsvideos (9:16) mit dem Maskottchen Sparbert für Kaufland, 
 5. Beschreibung enthält immer: Gültigkeit von–bis, „Unbezahlte Werbung / Kostenlose Werbung für @Händler“, Hinweis „Preise können je Markt abweichen“.
 6. Händler-Konten (@handle) nie raten: `auto/retailers.json`, `null` = offen.
 
+## Organisation
+Abteilungen, Übergaben, täglicher Ablauf, Formate und Kennzeichnungsstandard: `ORGANISATION.md`; Rollenanweisungen in `agents/`.
+
 ## Quellen
 - Kaufland: `https://filiale.kaufland.de/angebote/uebersicht.html` (JSON im Seitenquelltext, `OfferTemplate`; Zeitraum je Kategorie `salesFrom/salesTo`).
 - Lidl: Prospekt-API `https://endpoints.leaflets.schwarz/v4/flyer?flyer_identifier=<id>` (Seitenbilder; Preise von den Bildern lesen).
