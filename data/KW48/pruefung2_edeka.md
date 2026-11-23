@@ -55,3 +55,11 @@ Geprüft nur die Korrekturen.
 Das gerenderte Video würde damit weiterhin die beiden gesperrten Fehler zeigen. Zusätzlich nennen Kommentare (Zeile 147, 152) noch "Edeka-App", sichtbar im Video nicht relevant.
 
 FREIGABE: nein – Video-Template enthält eigene, unkorrigierte PRODUCTS-Liste (Nescafé oldLabel "UVP", "Spaghetti"/"je 500-g-Beutel"); JSON und Beschreibung sind korrekt. Nach Angleichung des Templates an die JSON erneut prüfen.
+
+## Endprüfung
+
+- (a) templates/angebote_edeka.html und templates/_build_edeka.html (identisch): kein "Spaghetti", kein "je 500-g-Beutel"; Nescafé hat oldLabel "Normalpreis". Die 6 übrigen "UVP" gehören zu Leerdammer, Wagner, Iglo, Froop, Mövenpick, Smarties und stimmen mit der JSON überein.
+- (b) Alle 10 Produkte der Vorlagen-PRODUCTS-Liste sind identisch zu data/KW48/edeka_products.json (Preis, card, old, oldLabel, valid, note, name, unit): 0 Abweichungen.
+- (c) out/edeka_KW48_ton.mp4 (Änderungszeit 12:35:15) ist älter als edeka_products.json (12:39:40) und die Vorlage (12:40:30), also NICHT neu gebaut. Frames bestätigen es: bei 24,5 s steht "Spaghetti / je 500-g-Beutel", bei 32 s "UVP 4,29 €" beim Nescafé.
+
+FREIGABE: nein – Video out/edeka_KW48_ton.mp4 ist noch mit den alten Daten gerendert (Spaghetti, Nescafé "UVP"); Vorlage und JSON sind korrekt, nach Neubau erneut prüfen.
