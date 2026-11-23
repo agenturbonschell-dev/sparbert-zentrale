@@ -63,3 +63,19 @@ FREIGABE: nein – Video-Template enthält eigene, unkorrigierte PRODUCTS-Liste 
 - (c) out/edeka_KW48_ton.mp4 (Änderungszeit 12:35:15) ist älter als edeka_products.json (12:39:40) und die Vorlage (12:40:30), also NICHT neu gebaut. Frames bestätigen es: bei 24,5 s steht "Spaghetti / je 500-g-Beutel", bei 32 s "UVP 4,29 €" beim Nescafé.
 
 FREIGABE: nein – Video out/edeka_KW48_ton.mp4 ist noch mit den alten Daten gerendert (Spaghetti, Nescafé "UVP"); Vorlage und JSON sind korrekt, nach Neubau erneut prüfen.
+
+## Endprüfung 2
+
+- (a) out/edeka_KW48_ton.mp4 (19:42:38) ist neuer als data/KW48/edeka_products.json (12:39:40), templates/angebote_edeka.html (13:00:09) und templates/_build_edeka.html (19:39:42); beide Vorlagen sind inhaltlich identisch. Länge 33,6 s = Intro 0,6 + Produkte (10 × 2,7 + 4 × 0,4) + Abspann 4,4.
+- (b) Frames bei Produktstart + ca. 1,4 s (START aus _build_edeka.html):
+  - Fleischkäse im Brötchen (2,0 s): 1,50 €, Hinweis "nur in teilnehmenden Märkten" sichtbar, OK.
+  - Leerdammer (5,0 s): 1,29 € "Preis mit App", "ohne App: 1,49 €", "UVP 2,69 €", OK.
+  - Wagner (8,1 s): 1,79 € "Preis mit App", "ohne App: 1,99 €", "UVP 3,69 €", OK.
+  - Iglo (11,2 s): 2,49 € "Preis mit App", "ohne App: 2,79 €", "UVP 4,89 €", OK.
+  - Mövenpick (22,4 s): 6,49 € "Preis mit App", "ohne App: 6,99 €", "UVP 8,99 €", OK.
+  - Teigwaren (19,6 s): Titel "Teigwaren", "je 500 g · versch. Ausformungen", 0,69 €, OK. Das Packungsbild trägt den Aufdruck "Spaghetti" (Produktfoto, kein Text des Videos), unkritisch.
+  - Nescafé (25,3 s): "Normalpreis 4,29 €" statt UVP, 2,22 €, OK. Kosmetisch: Die Altpreiszeile ist wegen der Länge des Wortes rechts knapp am Rahmen und das "€" ragt leicht unter den Rahmen; Zahl und Label sind lesbar, keine Beanstandung.
+  - Keine "Edeka-App"-Beschriftung mehr im Bild, nur "App".
+- (c) auto/caption.py edeka data/KW48/edeka_products.json 0: Kennzeichnung "Unbezahlte Werbung / Kostenlose Werbung für Edeka" ohne erfundenen @handle, Gültigkeit 23.11. bis 28.11., "Preise können je Markt abweichen", 5 Hashtags, Fleischkäse "(nur in teilnehmenden Märkten)", App-Preise mit "(mit App)". OK.
+
+FREIGABE: ja

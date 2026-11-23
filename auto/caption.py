@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Erzeugt Beschreibungstext + Hashtags je Video aus den Produktdaten. Nutzung: caption.py <haendler-id> <products.json> [variante]"""
-import json,sys,random,datetime
+import json,sys,random,datetime,re
+def _t(x):
+    return re.sub(r"(\w)'(\w)",lambda m:m.group(1)+"'"+m.group(2).lower(),x.title())
 def load(p):return json.load(open(p,encoding='utf-8'))
 def make(retailer,data,variant=0,platform='ig'):
     cfg=load(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)),'retailers.json'));R={r['id']:r for r in cfg['retailers']}[retailer]
@@ -10,7 +12,7 @@ def make(retailer,data,variant=0,platform='ig'):
     ref=('@'+tag.lstrip('@')) if tag else R['name']
     top=sorted(prods,key=lambda p:-int(p.get('save','0').strip('-%') or 0))[:3]
     hooks=[f"🔥 {R['name']}: Das sind die besten Angebote vom {d(von)} bis {d(bis)}!",
-           f"💰 Diese Woche bei {R['name']}: {top[0]['brand'].title()} {top[0]['name']} für {(top[0].get('card') or top[0]['price'])} €!",
+           f"💰 Diese Woche bei {R['name']}: {_t(top[0]['brand'])} {top[0]['name']} für {(top[0].get('card') or top[0]['price'])} €!",
            f"🛒 Nicht verpassen! {R['name']}-Angebote {d(von)}–{d(bis)}"]
     lines=[hooks[variant%len(hooks)],'']
     for p in prods[:6]:
@@ -22,7 +24,7 @@ def make(retailer,data,variant=0,platform='ig'):
         if 'max.' in (p.get('unit') or ''):parts.append(p['unit'].split('·')[-1].strip())
         if (p.get('note') or '').startswith('nur'):parts.append(p['note'])
         cond=f" ({', '.join(parts)})" if parts else ''
-        lines.append(f"• {p['brand'].title()} {p['name']}: {price} €{cond}")
+        lines.append(f"• {_t(p['brand'])} {p['name']}: {price} €{cond}")
     lines+=['',f"📅 Gültig {d(von)} bis {d(bis)}",
             f"Unbezahlte Werbung / Kostenlose Werbung für {ref}",
             ("Preise können je Markt abweichen. Angebote teils nur mit App/Karte oder an bestimmten Tagen." if (any(p.get('card') or (p.get('valid') or '').split(' ')[0] not in ('','Mo.') for p in prods)) else "Preise können je Markt abweichen."),'']

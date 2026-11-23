@@ -13,3 +13,6 @@
 | 2026-11-23 19:38 | Netto | TikTok | 6b04962683d02a16338c112b | über Buffer; TikTok kürzt den Namen im @-Tag |
 | 2026-11-23 19:5x | REWE | Instagram | 17903887632655699 | Reel, ohne Tag (Handle offen) |
 | 2026-11-23 19:58 | REWE | TikTok | 6b049ad3546af97ff752baac | über Buffer |
+| 2026-11-23 20:04 | Aldi Süd | Instagram | 18141118216725678 | Reel (2,7 s je Produkt) |
+| 2026-11-23 20:04 | Aldi Süd | TikTok | 6b049c57f7265001e0ce56ef | über Buffer |
+| 2026-11-24 12:00 (geplant) | Edeka | TikTok | 6b049c83ac07df385d4ff4eb | in Buffer vorgeplant; Instagram-Teil zum selben Zeitpunkt manuell nötig, solange Instagram nicht in Buffer verbunden ist |
