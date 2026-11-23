@@ -44,9 +44,10 @@ const DUCKS=[   // Pose, Seite (-1 links / 1 rechts); bei Card-Angeboten steht S
   ['p2',-1],['p5',1],['p7',1],['p6',-1],['p8',1],['p1',1],['p4',-1],['p2',1],['p1',-1],['p2',-1],['p8',1],['p6',1],['p5',-1],['p7',-1],['p4',1],['p6',-1],['p2',1]
 ];
 /* ========================================================= */
-const INTRO=.6,TAIL=.9,CARD_EXTRA=.5;   // Card-Angebote bleiben 0,5 s länger (Sprecher-Hinweis auf die Kaufland Card)
+const INTRO=.6,TAIL=4.4,CARD_EXTRA=.5;   // TAIL = Abspann mit Call to Action (Folgen/Speichern/Kommentar)   // Card-Angebote bleiben 0,5 s länger (Sprecher-Hinweis auf die Kaufland Card)
 const START=[],LEN=[];{let a=INTRO;for(const p of PRODUCTS){START.push(a);const l=PER+(p.card?CARD_EXTRA:0);LEN.push(l);a+=l}}
-const DUR=START[START.length-1]+LEN[LEN.length-1]+TAIL;
+const OUT=START[START.length-1]+LEN[LEN.length-1];
+const DUR=OUT+TAIL;
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const SS=+(new URLSearchParams(location.search).get('ss')||1);cv.width=1080*SS;cv.height=1920*SS;
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
@@ -277,6 +278,33 @@ function drawRibbon(c,t){
   const ds=fit(c,DATE_TXT,w-120,34);stext(c,DATE_TXT,540,y+86,ds,'#fff4c9','center',.2);
   c.restore();
 }
+/* ---------- Abspann: Call to Action ---------- */
+const HANDLE='@spar.bert';
+function drawCTA(c,t){
+  const u=t-OUT-.15;if(u<-.1)return;
+  const k=outBack(clamp(u/.55)),P=PANEL;
+  c.save();c.translate(P.x+P.w/2,P.y+P.h/2);c.scale(k,k);c.translate(-P.w/2,-P.h/2);
+  c.fillStyle='#fffaf0';rr(c,0,0,P.w,P.h,34);c.fill();c.lineWidth=10;c.strokeStyle=INK;c.stroke();
+  stext(c,'Gefällt dir?',P.w/2,66,66,'#ffd23a','center',.16);
+  // Folgen-Button (pulsiert, wird bei 1,5 s "gedrückt")
+  const pr=clamp((u-1.5)/.12),press=pr<1?pr:1-clamp((u-1.62)/.18);
+  const pulse=1+.035*Math.sin(u*9)*(u<1.5?1:0)-.07*press;
+  c.save();c.translate(P.w/2,176);c.scale(pulse,pulse);
+  c.fillStyle='#e8201a';rr(c,-310,-56,620,112,56);c.fill();c.lineWidth=7;c.strokeStyle=INK;c.stroke();
+  c.fillStyle='rgba(255,255,255,.22)';rr(c,-290,-46,580,30,15);c.fill();
+  const done=u>1.62;stext(c,done?'FOLGST DU ✓':'+  FOLGEN',0,4,done?56:62,'#fff','center',.14);c.restore();
+  c.fillStyle='#6a3d22';c.font=`800 33px ${FONT}`;c.textAlign='center';c.textBaseline='middle';
+  c.fillText('Jede Woche die besten Angebote',P.w/2,272);
+  const chip=(x,y,txt,col,d)=>{const q=outBack(clamp((u-d)/.4));if(q<=0)return;c.save();c.translate(x,y);c.scale(q,q);
+    c.font=`900 30px ${FONT}`;const w=c.measureText(txt).width+54;rr(c,-w/2,-31,w,62,31);c.fillStyle=col;c.fill();c.lineWidth=6;c.strokeStyle=INK;c.stroke();
+    c.fillStyle='#fff';c.textAlign='center';c.textBaseline='middle';c.fillText(txt,0,3);c.restore()};
+  chip(P.w/2-150,350,'SPEICHERN','#1f7ae0',.9);chip(P.w/2+150,350,'TEILEN','#1fa35a',1.05);
+  c.fillStyle='#14171f';c.font=`900 35px ${FONT}`;c.textAlign='center';
+  c.fillText('Welches Angebot holst du dir?',P.w/2,430);
+  c.fillStyle='#6a3d22';c.font=`700 29px ${FONT}`;c.fillText('Schreib es in die Kommentare',P.w/2,472);
+  stext(c,HANDLE,P.w/2,520,40,'#e8201a','center',.16);
+  c.restore();
+}
 /* ---------- Render ---------- */
 function render(t){
   t=clamp(t,0,DUR-1e-3);
@@ -297,6 +325,8 @@ function render(t){
     const [pose,side]=DUCKS[i%DUCKS.length],t0=START[i]+.7,t1=START[i]+LEN[i]-.05;
     if(t>=t0&&t<=t1)drawDuck(ctx,pose,side,t,t0,t1);
   });
+  drawCTA(ctx,t);
+  drawDuck(ctx,'p5',1,t,OUT+.45,DUR+5);
   drawTop(ctx,t);
   drawRibbon(ctx,t);
 }
