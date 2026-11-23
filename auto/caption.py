@@ -20,6 +20,7 @@ def make(retailer,data,variant=0,platform='ig'):
         v=p.get('valid') or ''
         if v and not v.startswith('gültig bis Sa') and not (v.startswith('Mo.') and v.rstrip('.').endswith(f"Sa. {bis[8:]}.{bis[5:7]}")):parts.append(v.replace('gültig ','').rstrip('.')) # Tages-Bedingung zeigen
         if 'max.' in (p.get('unit') or ''):parts.append(p['unit'].split('·')[-1].strip())
+        if (p.get('note') or '').startswith('nur'):parts.append(p['note'])
         cond=f" ({', '.join(parts)})" if parts else ''
         lines.append(f"• {p['brand'].title()} {p['name']}: {price} €{cond}")
     lines+=['',f"📅 Gültig {d(von)} bis {d(bis)}",

@@ -33,3 +33,15 @@ Quelle: Prospekt "Gutes für Alle." (kaufda 2501333886, 35 Seiten), Seiten 0, 6,
 - **Abweichung:** Der Satz "Angebote teils nur mit App/Karte oder an bestimmten Tagen." behauptet eine Bedingung, die es bei ALDI SÜD nicht gibt (alle Angebote Mo.–Sa., keine App/Karte, Prospekt wirbt ausdrücklich "ohne Bonus-App"). Das ist eine nicht belegte Behauptung. Vorschlag: für Aldi diesen Satz weglassen (oder "Pfand extra" nur bei Getränken). Danach freigabefähig.
 
 FREIGABE: nein – Beschreibung (caption.py) enthält unbelegten Satz "teils nur mit App/Karte oder an bestimmten Tagen"; alle 12 Produktdaten stimmen mit der Quelle, nach Korrektur des Satzes wäre Freigabe ja.
+
+## Nachprüfung
+Geprüft: neue Ausgabe von `python3 auto/caption.py aldi_sued data/KW48/aldi_sued_products.json 0`.
+- Kennzeichnung "Unbezahlte Werbung / Kostenlose Werbung für @aldisuedde": vorhanden, Handle stimmt mit auto/retailers.json (aldisuedde).
+- Gültigkeit "23.11. bis 28.11.": vorhanden, passt zu Produktdaten (Mo. 23. – Sa. 28.11.).
+- Hinweis "Preise können je Markt abweichen.": vorhanden.
+- Unbelegter App/Karten-/Tage-Satz: entfernt, keine unbelegte Bedingung mehr im Text.
+- Hashtags: 5 (#aldi #aldisued #angebote #angebotederwoche #sparen): ok.
+- Stichprobe der 6 genannten Preise gegen data/KW48/aldi_sued_products.json: Entenbrust 1,11; Ofenfrische 1,88; Pesto 1,69; Käse für den Ofen 1,79; Chicken Stripes 2,99; Margarine 0,59 – alle stimmen.
+- Die Produktprüfung (12 von 12 bestätigt) bleibt unverändert gültig.
+
+FREIGABE: ja

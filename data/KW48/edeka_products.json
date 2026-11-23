@@ -80,8 +80,8 @@
   {
    "sec": "FRISCH & ALLTAG",
    "brand": "GUT&GÜNSTIG",
-   "name": "Spaghetti",
-   "unit": "je 500-g-Beutel",
+   "name": "Teigwaren",
+   "unit": "je 500 g · versch. Ausformungen",
    "price": "0,69",
    "old": "",
    "save": "",
@@ -111,7 +111,7 @@
    "save": "-48%",
    "img": "nescafe",
    "valid": "Mo. 23. – Sa. 28.11.",
-   "oldLabel": "UVP"
+   "oldLabel": "Normalpreis"
   },
   {
    "sec": "SÜSSES & SNACKS",
