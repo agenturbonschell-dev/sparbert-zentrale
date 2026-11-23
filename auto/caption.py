@@ -25,7 +25,7 @@ def make(retailer,data,variant=0,platform='ig'):
         lines.append(f"• {p['brand'].title()} {p['name']}: {price} €{cond}")
     lines+=['',f"📅 Gültig {d(von)} bis {d(bis)}",
             f"Unbezahlte Werbung / Kostenlose Werbung für {ref}",
-            ("Preise können je Markt abweichen. Angebote teils nur mit App/Karte oder an bestimmten Tagen." if (R.get('card') or any(p.get('card') or (p.get('valid') or '').split(' ')[0] not in ('','Mo.') for p in prods)) else "Preise können je Markt abweichen."),'']
+            ("Preise können je Markt abweichen. Angebote teils nur mit App/Karte oder an bestimmten Tagen." if (any(p.get('card') or (p.get('valid') or '').split(' ')[0] not in ('','Mo.') for p in prods)) else "Preise können je Markt abweichen."),'']
     tags=cfg['hashtags_basis']+cfg['hashtags_je_haendler'][retailer]
     # Instagram: höchstens 5 Hashtags (Händler-Tags zuerst, dann die stärksten Basis-Tags)
     pick=[t for t in cfg['hashtags_je_haendler'][retailer]]+[t for t in cfg['hashtags_basis'] if t not in cfg['hashtags_je_haendler'][retailer]]
