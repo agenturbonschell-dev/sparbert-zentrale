@@ -1,0 +1,144 @@
+{
+ "haendler": "aldi_nord",
+ "von": "2026-11-23",
+ "bis": "2026-11-28",
+ "products": [
+  {
+   "sec": "TITELSEITE",
+   "brand": "BÄRENMARKE",
+   "name": "Haltbare Milch",
+   "unit": "je 1-l-Packung · 1,5 % oder 3,5 % Fett",
+   "price": "0,88",
+   "old": "1,49",
+   "save": "-40%",
+   "img": "milch",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "oldLabel": "UVP"
+  },
+  {
+   "sec": "TITELSEITE",
+   "brand": "ROUGETTE",
+   "name": "Ofenkäse",
+   "unit": "je 320-g-Packung · versch. Sorten",
+   "price": "3,79",
+   "old": "5,99",
+   "save": "-36%",
+   "img": "ofenkaese",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "oldLabel": "UVP"
+  },
+  {
+   "sec": "TITELSEITE",
+   "brand": "MARS · SNICKERS",
+   "name": "Eisriegel",
+   "unit": "je 5 Stück (248 / 252 ml) · versch. Sorten",
+   "price": "1,99",
+   "old": "3,69",
+   "save": "-46%",
+   "img": "eisriegel",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "RÜCKER",
+   "name": "Käsescheiben",
+   "unit": "je 100-g-Packung · versch. Sorten",
+   "price": "1,29",
+   "old": "1,99",
+   "save": "-35%",
+   "img": "kaesescheiben",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "oldLabel": "UVP"
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "HAINICH",
+   "name": "Letscho",
+   "unit": "je 650-g-Glas",
+   "price": "1,69",
+   "old": "2,29",
+   "save": "-26%",
+   "img": "letscho",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "oldLabel": "UVP"
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "SCHWEINERÜCKEN",
+   "name": "Minutensteaks",
+   "unit": "je 400-g-Packung · Schwein, frisch",
+   "price": "2,29",
+   "old": "2,99",
+   "save": "-23%",
+   "img": "steaks",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "BIO",
+   "name": "Kulturchampignons braun",
+   "unit": "je 250-g-Schale",
+   "price": "1,49",
+   "old": "1,89",
+   "save": "-21%",
+   "img": "champignons",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "FRISCHE",
+   "name": "Rosenkohl",
+   "unit": "je 750-g-Netz",
+   "price": "1,11",
+   "old": "",
+   "save": "",
+   "img": "rosenkohl",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "FRISCH & ALLTAG",
+   "brand": "BIO",
+   "name": "Speisekartoffeln",
+   "unit": "je 1,5-kg-Beutel · festkochend",
+   "price": "1,79",
+   "old": "1,99",
+   "save": "-10%",
+   "img": "kartoffeln",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "DE BEUKELAER",
+   "name": "Prinzenrolle",
+   "unit": "je 352 g / 400 g · Vanille oder Schoko",
+   "price": "1,39",
+   "old": "2,59",
+   "save": "-46%",
+   "img": "prinzenrolle",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "SÜSSES & SNACKS",
+   "brand": "EMIL REIMANN",
+   "name": "Lebkuchen-Spitzen",
+   "unit": "je 180-g-Packung · Erdbeere oder Kirsche",
+   "price": "2,69",
+   "old": "",
+   "save": "",
+   "img": "lebkuchen",
+   "valid": "Mo. 23. – Sa. 28.11."
+  },
+  {
+   "sec": "HAUSHALT & FAMILIE",
+   "brand": "FINISH",
+   "name": "Spülmaschinen-Caps",
+   "unit": "je 74 / 82 Caps · versch. Sorten",
+   "price": "9,99",
+   "old": "14,99",
+   "save": "-33%",
+   "img": "finish",
+   "valid": "Mo. 23. – Sa. 28.11.",
+   "oldLabel": "UVP"
+  }
+ ]
+}

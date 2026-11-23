@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><title>Sparbert Wochenangebote</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;background:#111;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:system-ui;color:#eee}
+canvas{height:min(88vh,calc(100vw*16/9));aspect-ratio:9/16;background:#000;border-radius:8px}
+#ui{margin-top:8px;display:flex;gap:10px;align-items:center}
+input{width:240px}
+</style></head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div id="ui"><button id="pl">⏸/▶</button><button id="rs">↺</button><input id="sk" type="range" min="0" max="20" step="0.01" value="0"><span id="tm">0.0s</span></div>
+<script>
+/* ===================== KONFIGURATION ===================== */
+const STORE={
+  name:'ALDI Nord',
+  logo:'../assets/logos/aldi_nord.png',                 // z.B. '../assets/logos/kaufland.png' -> erscheint automatisch auf der Tafel oben
+};
+const RIBBON='AKTUELLE ANGEBOTE';
+const DATE_TXT='gültig 23. – 28.11.2026';   // ALDI-Nord-Prospekt KW 48 (Mo. 23.11. bis Sa. 28.11.)
+const CARDNAME='ALDI', CARDCOL='#00005f', CARDK='A';   // ALDI hat keine Karten-/App-Preise: im Datensatz kein card-Feld, Plakette bleibt ungenutzt
+const CARDWITHOUT='ohne App', CARDONLY='nur mit App';   // ungenutzt (ALDI Nord)
+const PER=3.4;             // Sekunden pro Produkt (ruhiges Tempo fürs Voice-over)  ->  Länge = Intro + Anzahl Produkte × PER
+const PRODUCTS=[
+ {
+  "sec": "TITELSEITE",
+  "brand": "BÄRENMARKE",
+  "name": "Haltbare Milch",
+  "unit": "je 1-l-Packung · 1,5 % oder 3,5 % Fett",
+  "price": "0,88",
+  "old": "1,49",
+  "save": "-40%",
+  "img": "milch",
+  "valid": "Mo. 23. – Sa. 28.11.",
+  "oldLabel": "UVP"
+ },
+ {
+  "sec": "TITELSEITE",
+  "brand": "ROUGETTE",
+  "name": "Ofenkäse",
+  "unit": "je 320-g-Packung · versch. Sorten",
+  "price": "3,79",
+  "old": "5,99",
+  "save": "-36%",
+  "img": "ofenkaese",
+  "valid": "Mo. 23. – Sa. 28.11.",
+  "oldLabel": "UVP"
+ },
+ {
+  "sec": "TITELSEITE",
+  "brand": "MARS · SNICKERS",
+  "name": "Eisriegel",
+  "unit": "je 5 Stück (248 / 252 ml) · versch. Sorten",
+  "price": "1,99",
+  "old": "3,69",
+  "save": "-46%",
+  "img": "eisriegel",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "FRISCH & ALLTAG",
+  "brand": "RÜCKER",
+  "name": "Käsescheiben",
+  "unit": "je 100-g-Packung · versch. Sorten",
+  "price": "1,29",
+  "old": "1,99",
+  "save": "-35%",
+  "img": "kaesescheiben",
+  "valid": "Mo. 23. – Sa. 28.11.",
+  "oldLabel": "UVP"
+ },
+ {
+  "sec": "FRISCH & ALLTAG",
+  "brand": "HAINICH",
+  "name": "Letscho",
+  "unit": "je 650-g-Glas",
+  "price": "1,69",
+  "old": "2,29",
+  "save": "-26%",
+  "img": "letscho",
+  "valid": "Mo. 23. – Sa. 28.11.",
+  "oldLabel": "UVP"
+ },
+ {
+  "sec": "FRISCH & ALLTAG",
+  "brand": "SCHWEINERÜCKEN",
+  "name": "Minutensteaks",
+  "unit": "je 400-g-Packung · Schwein, frisch",
+  "price": "2,29",
+  "old": "2,99",
+  "save": "-23%",
+  "img": "steaks",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "FRISCH & ALLTAG",
+  "brand": "BIO",
+  "name": "Kulturchampignons braun",
+  "unit": "je 250-g-Schale",
+  "price": "1,49",
+  "old": "1,89",
+  "save": "-21%",
+  "img": "champignons",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "FRISCH & ALLTAG",
+  "brand": "FRISCHE",
+  "name": "Rosenkohl",
+  "unit": "je 750-g-Netz",
+  "price": "1,11",
+  "old": "",
+  "save": "",
+  "img": "rosenkohl",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "FRISCH & ALLTAG",
+  "brand": "BIO",
+  "name": "Speisekartoffeln",
+  "unit": "je 1,5-kg-Beutel · festkochend",
+  "price": "1,79",
+  "old": "1,99",
+  "save": "-10%",
+  "img": "kartoffeln",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "SÜSSES & SNACKS",
+  "brand": "DE BEUKELAER",
+  "name": "Prinzenrolle",
+  "unit": "je 352 g / 400 g · Vanille oder Schoko",
+  "price": "1,39",
+  "old": "2,59",
+  "save": "-46%",
+  "img": "prinzenrolle",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "SÜSSES & SNACKS",
+  "brand": "EMIL REIMANN",
+  "name": "Lebkuchen-Spitzen",
+  "unit": "je 180-g-Packung · Erdbeere oder Kirsche",
+  "price": "2,69",
+  "old": "",
+  "save": "",
+  "img": "lebkuchen",
+  "valid": "Mo. 23. – Sa. 28.11."
+ },
+ {
+  "sec": "HAUSHALT & FAMILIE",
+  "brand": "FINISH",
+  "name": "Spülmaschinen-Caps",
+  "unit": "je 74 / 82 Caps · versch. Sorten",
+  "price": "9,99",
+  "old": "14,99",
+  "save": "-33%",
+  "img": "finish",
+  "valid": "Mo. 23. – Sa. 28.11.",
+  "oldLabel": "UVP"
+ }
+];   // Quelle: ALDI-Nord-Prospekt 23.–28.11.2026 (kaufda.de, Prospekt 2501333881)   // Quelle: ALDI-Nord-Prospekt 23.–28.11.2026 (kaufda.de, Prospekt 2501333881)
+const DUCKS=[   // Pose, Seite (-1 links / 1 rechts); bei Card-Angeboten steht Sparbert links, damit die Card-Plakette frei bleibt
+  ['p2',-1],['p5',1],['p7',1],['p6',-1],['p8',1],['p1',1],['p4',-1],['p2',1],['p1',-1],['p2',-1],['p8',1],['p6',1],['p5',-1],['p7',-1],['p4',1],['p6',-1],['p2',1]
+];
+/* ========================================================= */
+const INTRO=.6,TAIL=4.4,CARD_EXTRA=.5;   // Card-Angebote bleiben 0,5 s länger (Sprecher-Hinweis auf die Karte)
+const START=[],LEN=[];{let a=INTRO;for(const p of PRODUCTS){START.push(a);const l=PER+(p.card?CARD_EXTRA:0);LEN.push(l);a+=l}}
+const OUT=START[START.length-1]+LEN[LEN.length-1];
+const DUR=OUT+TAIL;
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const SS=+(new URLSearchParams(location.search).get('ss')||1);cv.width=1080*SS;cv.height=1920*SS;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const sm=x=>{x=clamp(x);return x*x*x*(x*(x*6-15)+10)};
+const load=s=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=s});
+const INK='#14171f';
+const FONT='"Arial Black","DejaVu Sans",Arial,sans-serif';
+function rr(c,x,y,w,h,r){c.beginPath();c.roundRect(x,y,w,h,r)}
+function outBack(u){u=clamp(u);const c1=1.9,c3=c1+1;return 1+c3*Math.pow(u-1,3)+c1*Math.pow(u-1,2)}
+function popScale(t,t0,t1,popT=.5,outT=.3){ // 0 -> Overshoot -> 1 ... -> 0
+  if(t<t0||t>t1)return 0;
+  if(t<t0+popT)return outBack((t-t0)/popT);
+  if(t>t1-outT){const u=(t1-t)/outT;return clamp(u*u*(3-2*u))*(1+.06*(1-u))}
+  return 1;
+}
+let S={};
+/* ---------- Hintergrund (aus deinem Bild, nach oben/unten verlängert) ---------- */
+const SC=1.075,IMGX=540-836*SC,IMGY=960-470.5*SC,IMGW=1672*SC,IMGH=941*SC;
+function buildBackground(){
+  const c=document.createElement('canvas');c.width=1080;c.height=1920;const x=c.getContext('2d');
+  let g=x.createLinearGradient(0,0,0,IMGY+60);g.addColorStop(0,'#e6a982');g.addColorStop(1,'#ecb692');x.fillStyle=g;x.fillRect(0,0,1080,IMGY+80);
+  // Deckenplatten + Lichter oberhalb
+  x.strokeStyle='rgba(255,235,210,.35)';x.lineWidth=3;
+  for(let yy=IMGY;yy>-60;yy-=120){x.beginPath();x.moveTo(0,yy);x.lineTo(1080,yy);x.stroke()}
+  for(let xx=-60;xx<1200;xx+=180){x.beginPath();x.moveTo(xx,0);x.lineTo(xx,IMGY);x.stroke()}
+  for(const [lx,ly,lw] of [[130,40,300],[650,40,300],[250,250,320],[760,250,300]]){
+    x.save();x.shadowColor='rgba(255,255,230,.9)';x.shadowBlur=40;rr(x,lx,ly,lw,50,10);x.fillStyle='#fffdf2';x.fill();x.restore()}
+  // unten: Fliesenboden
+  g=x.createLinearGradient(0,IMGY+IMGH-60,0,1920);g.addColorStop(0,'#f6c586');g.addColorStop(1,'#f3bd7a');x.fillStyle=g;x.fillRect(0,IMGY+IMGH-60,1080,1920);
+  x.strokeStyle='rgba(170,110,60,.22)';x.lineWidth=3;
+  for(let k=0;k<9;k++){const yy=IMGY+IMGH+Math.pow(k,1.7)*18;x.beginPath();x.moveTo(0,yy);x.lineTo(1080,yy);x.stroke()}
+  for(let k=-10;k<=10;k++){x.beginPath();x.moveTo(540+k*40,IMGY+IMGH-20);x.lineTo(540+k*190,1960);x.stroke()}
+  // Bild mit weichen Kanten
+  const t=document.createElement('canvas');t.width=1080;t.height=1920;const y=t.getContext('2d');
+  y.drawImage(S.BG,IMGX,IMGY,IMGW,IMGH);
+  y.globalCompositeOperation='destination-in';
+  const m=y.createLinearGradient(0,IMGY,0,IMGY+IMGH);m.addColorStop(0,'rgba(0,0,0,0)');m.addColorStop(.1,'rgba(0,0,0,1)');m.addColorStop(.9,'rgba(0,0,0,1)');m.addColorStop(1,'rgba(0,0,0,0)');
+  y.fillStyle=m;y.fillRect(0,0,1080,1920);
+  x.drawImage(t,0,0);
+  return c;
+}
+/* ---------- Produkt-Icons (Cartoon, 300×300 um den Mittelpunkt) ---------- */
+function ink(c,w=7){c.lineWidth=w;c.strokeStyle=INK;c.lineJoin='round';c.lineCap='round';c.stroke()}
+function grad(c,y0,y1,cols){const g=c.createLinearGradient(0,y0,0,y1);cols.forEach((col,i)=>g.addColorStop(i/(cols.length-1),col));return g}
+function gloss(c,x,y,w,h,rot=-.3){c.save();c.fillStyle='rgba(255,255,255,.55)';c.beginPath();c.ellipse(x,y,w,h,rot,0,7);c.fill();c.restore()}
+const ICONS={
+  choco(c){
+    c.save();c.rotate(-.14);
+    for(let i=0;i<8;i++){const gx=(i%4)*46-69,gy=-150+Math.floor(i/4)*46;rr(c,gx-21,gy,42,42,7);c.fillStyle=i%3?'#7b4a2a':'#6a3d22';c.fill();ink(c,5)}
+    c.beginPath();c.moveTo(-105,-50);c.lineTo(-92,-76);c.lineTo(92,-76);c.lineTo(105,-50);c.closePath();c.fillStyle='#d9dde7';c.fill();ink(c,6);
+    rr(c,-105,-56,210,210,26);c.fillStyle=grad(c,-56,154,['#9d63e8','#6a35bd']);c.fill();ink(c,8);
+    c.beginPath();c.moveTo(-105,22);c.bezierCurveTo(-45,-12,45,64,105,22);c.lineTo(105,78);c.bezierCurveTo(45,120,-45,44,-105,78);c.closePath();c.fillStyle='#fff';c.fill();ink(c,5);
+    c.fillStyle='rgba(255,255,255,.28)';c.beginPath();c.roundRect(-92,-44,26,190,12);c.fill();
+    c.restore();
+  },
+  sekt(c){
+    c.save();c.rotate(.1);
+    c.beginPath();c.moveTo(-34,-150);c.lineTo(34,-150);c.lineTo(34,-60);c.bezierCurveTo(34,-30,86,-18,86,22);c.lineTo(86,128);c.quadraticCurveTo(86,152,62,152);c.lineTo(-62,152);c.quadraticCurveTo(-86,152,-86,128);c.lineTo(-86,22);c.bezierCurveTo(-86,-18,-34,-30,-34,-60);c.closePath();
+    c.fillStyle=grad(c,-150,152,['#2f8a4a','#14522b']);c.fill();ink(c,8);
+    rr(c,-38,-172,76,74,10);c.fillStyle=grad(c,-172,-98,['#ffe27a','#d9a312']);c.fill();ink(c,7);
+    rr(c,-86,24,172,86,12);c.fillStyle='#fff3d6';c.fill();ink(c,6);
+    c.beginPath();c.arc(0,66,30,0,7);c.fillStyle='#e8201a';c.fill();ink(c,5);
+    gloss(c,-56,60,10,70,.05);
+    c.fillStyle='rgba(255,255,255,.85)';for(const [bx,by,br] of [[-118,-92,12],[-96,-136,8],[108,-118,10],[122,-70,7],[96,-168,6]]){c.beginPath();c.arc(bx,by,br,0,7);c.fill();ink(c,4)}
+    c.restore();
+  },
+  cheese(c){
+    c.save();c.rotate(-.08);
+    c.beginPath();c.moveTo(-150,60);c.lineTo(110,-70);c.lineTo(150,70);c.lineTo(-150,70);c.closePath();
+    c.fillStyle=grad(c,-70,70,['#ffe36a','#f7b72a']);c.fill();ink(c,8);
+    c.beginPath();c.moveTo(-150,70);c.lineTo(150,70);c.lineTo(150,126);c.lineTo(-150,126);c.closePath();c.fillStyle=grad(c,70,126,['#f4b730','#d68d12']);c.fill();ink(c,8);
+    for(const [hx,hy,hr] of [[-60,30,16],[10,12,22],[70,40,14],[-10,52,10]]){c.beginPath();c.ellipse(hx,hy,hr,hr*.8,0,0,7);c.fillStyle='#e29a1c';c.fill();ink(c,5)}
+    gloss(c,-20,-6,70,10,-.3);
+    c.restore();
+  },
+  milk(c){
+    c.save();c.rotate(.06);
+    c.beginPath();c.moveTo(-84,-70);c.lineTo(-84,150);c.quadraticCurveTo(-84,160,-72,160);c.lineTo(72,160);c.quadraticCurveTo(84,160,84,150);c.lineTo(84,-70);c.closePath();c.fillStyle=grad(c,-70,160,['#ffffff','#dfeaf8']);c.fill();ink(c,8);
+    c.beginPath();c.moveTo(-84,-70);c.lineTo(-52,-136);c.lineTo(52,-136);c.lineTo(84,-70);c.closePath();c.fillStyle='#4aa0ff';c.fill();ink(c,8);
+    rr(c,-22,-168,44,34,8);c.fillStyle='#e8201a';c.fill();ink(c,6);
+    rr(c,-84,-12,168,82,0);c.fillStyle='#2a7be4';c.fill();ink(c,6);
+    c.beginPath();c.moveTo(0,-4);c.bezierCurveTo(30,34,28,58,0,58);c.bezierCurveTo(-28,58,-30,34,0,-4);c.fillStyle='#fff';c.fill();ink(c,5);
+    gloss(c,-56,60,8,70,.05);
+    c.restore();
+  },
+  mince(c){
+    c.save();c.rotate(-.05);
+    c.beginPath();c.moveTo(-150,-10);c.lineTo(150,-10);c.lineTo(126,110);c.quadraticCurveTo(122,126,106,126);c.lineTo(-106,126);c.quadraticCurveTo(-122,126,-126,110);c.closePath();c.fillStyle=grad(c,-10,126,['#ffffff','#e5ebf5']);c.fill();ink(c,8);
+    c.beginPath();c.moveTo(-132,-10);c.bezierCurveTo(-130,-96,130,-96,132,-10);c.bezierCurveTo(100,10,-100,10,-132,-10);c.closePath();c.fillStyle=grad(c,-80,10,['#ff9fb2','#e9566f']);c.fill();ink(c,8);
+    c.strokeStyle='rgba(180,40,70,.55)';c.lineWidth=7;for(const [ax,ay] of [[-70,-40],[-10,-58],[50,-40],[-40,-14],[26,-18],[84,-16]]){c.beginPath();c.arc(ax,ay,16,.4,4);c.stroke()}
+    rr(c,-60,32,120,60,12);c.fillStyle='#e8201a';c.fill();ink(c,6);
+    c.fillStyle='#fff';c.font='900 34px '+FONT;c.textAlign='center';c.textBaseline='middle';c.fillText('500 g',0,63);
+    gloss(c,-80,-52,40,8,-.4);
+    c.restore();
+  },
+  crate(c){
+    c.save();c.rotate(.04);
+    const cols=['#e8201a','#ff8a1a','#ffd23f','#e8201a','#4aa0ff','#ff8a1a'];
+    for(let i=0;i<6;i++){const bx=-100+(i%3)*100,by=i<3?-110:-76;
+      c.save();c.translate(bx,by);rr(c,-26,-20,52,170,16);c.fillStyle=grad(c,-20,150,['#5a3a22','#3a2414']);c.fill();ink(c,6);
+      rr(c,-14,-48,28,34,6);c.fillStyle='#5a3a22';c.fill();ink(c,5);rr(c,-18,-58,36,16,5);c.fillStyle=cols[i];c.fill();ink(c,5);
+      rr(c,-26,50,52,48,6);c.fillStyle=cols[i];c.fill();ink(c,4);c.restore()}
+    rr(c,-150,-4,300,140,22);c.fillStyle=grad(c,-4,136,['#ff3b2f','#b91008']);c.fill();ink(c,9);
+    c.fillStyle='rgba(0,0,0,.22)';for(let i=0;i<3;i++){rr(c,-120+i*84,26,64,24,12);c.fill()}
+    c.fillStyle='#fff';c.font='900 44px '+FONT;c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';c.lineWidth=9;c.strokeStyle=INK;c.strokeText('12 × 1 l',0,88);c.fillText('12 × 1 l',0,88);
+    c.restore();
+  },
+  juice(c){
+    c.save();
+    c.beginPath();c.moveTo(-40,-150);c.lineTo(40,-150);c.lineTo(40,-90);c.bezierCurveTo(40,-60,88,-50,88,-10);c.lineTo(88,128);c.quadraticCurveTo(88,152,64,152);c.lineTo(-64,152);c.quadraticCurveTo(-88,152,-88,128);c.lineTo(-88,-10);c.bezierCurveTo(-88,-50,-40,-60,-40,-90);c.closePath();
+    c.fillStyle=grad(c,-150,152,['#ffb02e','#ee7d0a']);c.fill();ink(c,8);
+    rr(c,-44,-176,88,40,10);c.fillStyle='#e8201a';c.fill();ink(c,7);
+    rr(c,-88,10,176,100,12);c.fillStyle='#fff';c.fill();ink(c,6);
+    c.beginPath();c.arc(0,60,36,0,7);c.fillStyle='#ffb02e';c.fill();ink(c,5);c.beginPath();c.moveTo(-36,60);c.lineTo(36,60);c.moveTo(0,24);c.lineTo(0,96);ink(c,4);
+    gloss(c,-60,40,9,90,.05);c.restore();
+  }
+};
+/* ---------- Funkeln ---------- */
+function star(c,x,y,r,col='#fff'){c.save();c.translate(x,y);c.fillStyle=col;c.beginPath();for(let k=0;k<8;k++){const a=k*Math.PI/4,rd=k%2?r*.25:r;c.lineTo(Math.sin(a)*rd,-Math.cos(a)*rd)}c.closePath();c.fill();c.restore()}
+function sparks(c,x,y,t,t0,n=9,R=210){
+  const u=(t-t0)/.55;if(u<0||u>1)return;
+  for(let k=0;k<n;k++){const a=k*Math.PI*2/n+k*.7,d=R*(.35+.65*sm(u))*(.7+.3*((k*37)%10)/10);
+    c.save();c.globalAlpha=1-u;star(c,x+Math.cos(a)*d,y+Math.sin(a)*d,(10+8*((k*13)%5)/4)*(1-u*.6),k%2?'#ffffff':'#ffd23f');c.restore()}
+}
+/* ---------- Text ---------- */
+function stext(c,str,x,y,size,fill,align='center',strokeW=.2,rot=0){
+  c.save();c.translate(x,y);c.rotate(rot);c.font=`900 ${size}px ${FONT}`;c.textAlign=align;c.textBaseline='middle';c.lineJoin='round';
+  c.lineWidth=size*strokeW;c.strokeStyle=INK;c.strokeText(str,0,0);c.fillStyle=fill;c.fillText(str,0,0);c.restore();
+}
+function fit(c,str,maxW,size,weight=900){c.font=`${weight} ${size}px ${FONT}`;while(c.measureText(str).width>maxW&&size>14){size-=2;c.font=`${weight} ${size}px ${FONT}`}return size}
+function burst(c,x,y,r,n,col,rot=0){c.save();c.translate(x,y);c.rotate(rot);c.beginPath();for(let k=0;k<n*2;k++){const a=k*Math.PI/n,rad=k%2?r*.82:r;c.lineTo(Math.cos(a)*rad,Math.sin(a)*rad)}c.closePath();c.fillStyle=col;c.fill();ink(c,7);c.restore()}
+/* ---------- Produktkarte im mittleren Bereich ---------- */
+const PANEL={x:84,y:690,w:912,h:552};
+function drawCard(c,p,t,t0,t1,idx){
+  const k=popScale(t,t0,t1);if(k<=0)return;
+  const age=t-t0;
+  c.save();c.beginPath();c.roundRect(PANEL.x,PANEL.y,PANEL.w,PANEL.h,30);c.clip();
+  const cx=PANEL.x+PANEL.w/2,cy=PANEL.y+PANEL.h/2;
+  c.translate(cx,cy);c.scale(lerp(.6,1,Math.min(1,k)),lerp(.6,1,Math.min(1,k)));c.globalAlpha=clamp(k*1.6);c.translate(-cx,-cy);
+  // Strahlen hinter dem Produkt
+  c.save();c.translate(PANEL.x+290,cy+10);c.rotate(age*.35);
+  for(let i=0;i<14;i++){c.rotate(Math.PI*2/14);c.fillStyle=i%2?'rgba(255,200,80,.28)':'rgba(255,150,60,.16)';c.beginPath();c.moveTo(0,0);c.lineTo(520,-60);c.lineTo(520,60);c.closePath();c.fill()}
+  c.restore();
+  // Produktbild
+  const pi=outBack(clamp((age-.08)/.55));
+  c.save();c.translate(PANEL.x+305,cy+14+Math.sin(age*1.6)*8);c.rotate(Math.sin(age*1.2)*.035);
+  c.shadowColor='rgba(80,30,0,.38)';c.shadowBlur=34;c.shadowOffsetY=22;
+  if(p.img&&S.IMG[p.img]){const im=S.IMG[p.img],sc=Math.min(400/im.width,430/im.height)*pi;c.scale(sc,sc);c.drawImage(im,-im.width/2,-im.height/2)}
+  else{c.scale(1.28*pi,1.28*pi);ICONS[p.icon](c)}
+  c.restore();
+  // Spar-Badge
+  if(p.save){const bi=outBack(clamp((age-.45)/.5));c.save();c.translate(PANEL.x+100,PANEL.y+112);c.scale(bi,bi);c.rotate(-.18+Math.sin(age*3)*.03);
+    const isPct=/%/.test(p.save);burst(c,0,0,isPct?96:104,14,'#ffd23f');burst(c,0,0,isPct?76:82,14,'#e8201a');
+    const fs=fit(c,p.save,isPct?112:118,isPct?50:30);stext(c,p.save,0,3,fs,'#fff',undefined,.17);c.restore()}
+  // Texte rechts
+  const tx=PANEL.x+548,bi=outBack(clamp((age-.7)/.55));
+  c.save();c.translate(tx,PANEL.y+88);c.scale(bi,bi);c.translate(-tx,-(PANEL.y+88));
+  let fs=fit(c,p.brand,320,38);stext(c,p.brand,tx,PANEL.y+66,fs,'#e8201a','left',.2);
+  fs=fit(c,p.name,320,56);stext(c,p.name,tx,PANEL.y+128,fs,'#fff','left',.2);
+  c.font=`700 30px ${FONT}`;c.textAlign='left';c.textBaseline='middle';c.fillStyle='#6a3d22';
+  fs=fit(c,p.unit,320,30,700);c.fillText(p.unit,tx,PANEL.y+176);
+  if(p.note&&!p.card){c.font=`700 23px ${FONT}`;c.fillStyle='rgba(120,70,30,.9)';fit(c,p.note,330,23,700);c.fillText(p.note,tx,PANEL.y+244)}
+  if(p.valid){c.font=`700 27px ${FONT}`;c.fillStyle='rgba(120,70,30,.9)';fs=fit(c,p.valid,320,27,700);c.fillText(p.valid,tx,PANEL.y+214)}
+  c.restore();
+  // Preis
+  const pr=outBack(clamp((age-1.0)/.6));
+  const cs=p.card?.86:1;c.save();c.translate(PANEL.x+726,PANEL.y+(p.card?352:404));c.scale(pr*cs,pr*cs);c.rotate(-.04);
+  rr(c,-190,-92,380,184,34);c.fillStyle='#000';c.globalAlpha*=.25;c.fill();c.globalAlpha=clamp(k*1.6);
+  c.save();c.translate(0,-8);rr(c,-190,-92,380,184,34);c.fillStyle=grad(c,-92,92,['#ff4a38','#c4160e']);c.fill();ink(c,9);
+  c.fillStyle='rgba(255,255,255,.2)';c.beginPath();c.roundRect(-176,-84,352,50,24);c.fill();
+  const [eur,cent]=(p.card||p.price).split(',');
+  c.font=`900 140px ${FONT}`;const w1=c.measureText(eur).width;c.font=`900 74px ${FONT}`;const w2=cent?c.measureText(','+cent).width:0;
+  const total=w1+w2+66,x0=-total/2,ps=Math.min(1,326/total);c.scale(ps,ps);
+  stext(c,eur,x0,8,140,'#fff','left',.12);
+  if(cent){stext(c,','+cent,x0+w1,-24,74,'#fff','left',.15)}
+  stext(c,'€',x0+w1+w2+8,10,86,'#ffd23f','left',.14);
+  c.restore();
+  if(p.old){stext(c,(p.oldLabel||'statt')+' '+p.old+' €',0,-122,36,'#fff','center',.22);
+    c.save();c.strokeStyle='#e8201a';c.lineWidth=7;c.beginPath();c.moveTo(-110,-120);c.lineTo(110,-124);c.stroke();c.restore()}
+  c.restore();
+  {const ci2=outBack(clamp((age-.1)/.4));c.save();c.translate(PANEL.x+330,PANEL.y+56);c.scale(ci2,ci2);c.font=`900 21px ${FONT}`;const cw=c.measureText(p.sec).width+36;rr(c,-cw/2,-17,cw,34,17);c.fillStyle='#fff';c.fill();c.lineWidth=5;c.strokeStyle='#e8201a';c.stroke();c.fillStyle='#e8201a';c.textAlign='center';c.textBaseline='middle';c.fillText(p.sec,0,2);c.restore()}
+  if(p.card){const ci=outBack(clamp((age-1.3)/.5));c.save();c.translate(PANEL.x+672,PANEL.y+490);c.scale(ci*.97,ci*.97);c.rotate(.015);
+    rr(c,-222,-34,444,68,34);c.fillStyle='#fff';c.fill();c.lineWidth=7;c.strokeStyle=CARDCOL;c.stroke();
+    c.fillStyle='#ffe500';c.beginPath();c.arc(-187,0,24,0,7);c.fill();c.lineWidth=4;c.strokeStyle=CARDCOL;c.stroke();c.fillStyle=CARDCOL;c.font=`900 30px ${FONT}`;c.textAlign='center';c.textBaseline='middle';c.fillText('+',-187,2);
+    c.textAlign='left';c.fillStyle=CARDCOL;c.font=`900 25px ${FONT}`;c.fillText('Preis mit '+CARDNAME,-150,-12);
+    const sub=(p.price?CARDWITHOUT+': '+p.price+' €':CARDONLY)+(p.note?'  ·  '+p.note:'');c.fillStyle='#4a3a2a';const f2=fit(c,sub,360,20,700);c.fillText(sub,-150,15);c.restore()}
+  c.restore();
+  sparks(c,PANEL.x+PANEL.w/2,PANEL.y+PANEL.h/2,t,t0);
+}
+/* ---------- Ente ---------- */
+function drawDuck(c,pose,side,t,t0,t1){
+  const k=popScale(t,t0,t1,.5,.3);if(k<=0)return;
+  const im=S.P[pose],h=im.height,sc=690/h;
+  const gx=540+side*245,gy=1900,age=t-t0;
+  const sq=1+Math.sin(age*3.1)*.012;
+  c.save();
+  c.save();c.translate(gx,gy-6);c.scale(1,.12);const g=c.createRadialGradient(0,0,10,0,0,150*k);g.addColorStop(0,'rgba(60,30,10,.35)');g.addColorStop(1,'rgba(60,30,10,0)');c.fillStyle=g;c.beginPath();c.arc(0,0,150*k,0,7);c.fill();c.restore();
+  c.translate(gx,gy);c.rotate(Math.sin(age*2.4)*.012+(1-clamp(k))*side*.25);
+  c.scale(sc*k*sq*(side<0&&(pose==='p2'||pose==='p6')?1:1),sc*k*(2-sq));
+  // Pose p6/p2 zeigen nach rechts -> links stehen; wenn rechts gewünscht, spiegeln
+  if((pose==='p2'||pose==='p6')&&side>0)c.scale(-1,1);
+  c.drawImage(im,-im.width/2,-im.height);
+  if(pose==='p7'&&S.curTag){ // Tafel: Ersparnis draufschreiben
+    c.save();c.translate(-im.width/2,-im.height);
+    c.translate(1215,1085);c.rotate(.07);
+    const tg=S.curTag;const fs=fit(c,tg,360,170);stext(c,tg,0,0,fs,'#e8201a','center',.12);c.restore()}
+  c.restore();
+  sparks(c,gx,gy-300,t,t0+.04,8,230);
+}
+/* ---------- Kopf: Ente mit Tafel + Logo (fest) ---------- */
+function drawTop(c,t){
+  const im=S.P.p3,m=S.META.p3,sc=600/im.width,x0=540-im.width*sc/2,y0=30+Math.sin(t*1.6)*4;
+  // sanfter Schatten
+  c.save();c.shadowColor='rgba(80,30,0,.35)';c.shadowBlur=26;c.shadowOffsetY=16;c.drawImage(im,x0,y0,im.width*sc,im.height*sc);c.restore();
+  const [wx0,wy0,wx1,wy1]=m.white,bx=x0+wx0*sc,by=y0+wy0*sc,bw=(wx1-wx0)*sc,bh=(wy1-wy0)*sc;
+  if(S.LOGO){const top=y0+1285*sc,bot=588,pad=8,r=Math.min((bw-80)/S.LOGO.width,(bot-top-pad*2)/S.LOGO.height);c.drawImage(S.LOGO,bx+bw/2-S.LOGO.width*r/2,(top+bot)/2-S.LOGO.height*r/2,S.LOGO.width*r,S.LOGO.height*r)}
+  else{c.save();c.setLineDash([14,10]);c.lineWidth=4;c.strokeStyle='rgba(20,23,31,.35)';rr(c,bx+16,by+16,bw-32,bh-32,18);c.stroke();c.restore();
+    c.font=`900 54px ${FONT}`;c.textAlign='center';c.textBaseline='middle';c.fillStyle='rgba(20,23,31,.38)';c.fillText('LOGO',bx+bw/2,by+bh/2)}
+}
+function drawRibbon(c,t){
+  const w=720,h=112,x=540-w/2,y=594;
+  c.save();c.translate(540,y+h/2);c.rotate(Math.sin(t*1.1)*.006);c.translate(-540,-(y+h/2));
+  c.fillStyle='rgba(0,0,0,.25)';rr(c,x+4,y+10,w,h,24);c.fill();
+  rr(c,x,y,w,h,24);c.fillStyle=grad(c,y,y+h,['#ff4a38','#c4160e']);c.fill();ink(c,8);
+  c.fillStyle='rgba(255,255,255,.2)';rr(c,x+10,y+8,w-20,26,13);c.fill();
+  const fs=fit(c,RIBBON,w-60,54);stext(c,RIBBON,540,y+42,fs,'#fff','center',.17);
+  const ds=fit(c,DATE_TXT,w-120,34);stext(c,DATE_TXT,540,y+86,ds,'#fff4c9','center',.2);
+  c.restore();
+}
+/* ---------- Abspann: Call to Action ---------- */
+const HANDLE='@spar.bert';
+function drawCTA(c,t){
+  const u=t-OUT-.15;if(u<-.1)return;
+  const k=outBack(clamp(u/.55)),P=PANEL;
+  c.save();c.translate(P.x+P.w/2,P.y+P.h/2);c.scale(k,k);c.translate(-P.w/2,-P.h/2);
+  c.fillStyle='#fffaf0';rr(c,0,0,P.w,P.h,34);c.fill();c.lineWidth=10;c.strokeStyle=INK;c.stroke();
+  stext(c,'Gefällt dir?',P.w/2,98,62,'#ffd23a','center',.16);
+  // Folgen-Button (pulsiert, wird bei 1,5 s "gedrückt")
+  const pr=clamp((u-1.5)/.12),press=pr<1?pr:1-clamp((u-1.62)/.18);
+  const pulse=1+.035*Math.sin(u*9)*(u<1.5?1:0)-.07*press;
+  c.save();c.translate(P.w/2,200);c.scale(pulse,pulse);
+  c.fillStyle='#e8201a';rr(c,-300,-50,600,100,50);c.fill();c.lineWidth=7;c.strokeStyle=INK;c.stroke();
+  c.fillStyle='rgba(255,255,255,.22)';rr(c,-282,-41,564,26,13);c.fill();
+  const done=u>1.62;stext(c,done?'FOLGST DU ✓':'+  FOLGEN',0,4,done?56:62,'#fff','center',.14);c.restore();
+  c.fillStyle='#6a3d22';c.font=`800 33px ${FONT}`;c.textAlign='center';c.textBaseline='middle';
+  c.fillText('Jede Woche die besten Angebote',P.w/2,288);
+  const chip=(x,y,txt,col,d)=>{const q=outBack(clamp((u-d)/.4));if(q<=0)return;c.save();c.translate(x,y);c.scale(q,q);
+    c.font=`900 30px ${FONT}`;const w=c.measureText(txt).width+54;rr(c,-w/2,-31,w,62,31);c.fillStyle=col;c.fill();c.lineWidth=6;c.strokeStyle=INK;c.stroke();
+    c.fillStyle='#fff';c.textAlign='center';c.textBaseline='middle';c.fillText(txt,0,3);c.restore()};
+  chip(P.w/2-150,352,'SPEICHERN','#1f7ae0',.9);chip(P.w/2+150,352,'TEILEN','#1fa35a',1.05);
+  c.fillStyle='#14171f';c.font=`900 35px ${FONT}`;c.textAlign='center';
+  c.fillText('Welches Angebot holst du dir?',P.w/2,420);
+  c.fillStyle='#6a3d22';c.font=`700 29px ${FONT}`;c.fillText('Schreib es in die Kommentare',P.w/2,458);
+  stext(c,HANDLE,P.w/2,504,40,'#e8201a','center',.16);
+  c.restore();
+}
+/* ---------- Render ---------- */
+function render(t){
+  t=clamp(t,0,DUR-1e-3);
+  ctx.setTransform(SS,0,0,SS,0,0);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.clearRect(0,0,1080,1920);
+  // leichte Kamerafahrt
+  const z=1+.025*sm(t/DUR);
+  ctx.save();ctx.translate(540,960);ctx.scale(z,z);ctx.translate(-540,-960);
+  ctx.drawImage(S.BGC,0,0);
+  ctx.restore();
+  // Tafel-Frame der Panel-Kante bleibt im Hintergrundbild; Karten im Panel
+  S.curTag=null;
+  PRODUCTS.forEach((p,i)=>{
+    const t0=START[i],t1=t0+LEN[i]-.04;
+    if(t>=t0&&t<=t1)S.curTag=p.save||'';
+    drawCard(ctx,p,t,t0,t1,i);
+  });
+  PRODUCTS.forEach((p,i)=>{
+    const [pose,side]=DUCKS[i%DUCKS.length],t0=START[i]+.7,t1=START[i]+LEN[i]-.05;
+    if(t>=t0&&t<=t1)drawDuck(ctx,pose,side,t,t0,t1);
+  });
+  drawCTA(ctx,t);
+  drawDuck(ctx,'p5',1,t,OUT+.45,DUR+5);
+  drawTop(ctx,t);
+  drawRibbon(ctx,t);
+}
+/* ---------- Player ---------- */
+const CAP=location.search.includes('cap');
+let playing=true,last=performance.now(),Tm=0;window.setT=t=>{Tm=t;playing=false};
+const sk=document.getElementById('sk'),tm=document.getElementById('tm');
+function loop(n){const dt=(n-last)/1000;last=n;if(playing){Tm+=dt;if(Tm>DUR+.8)Tm=0}render(Math.min(Tm,DUR));sk.value=Tm;tm.textContent=Tm.toFixed(1)+'s';requestAnimationFrame(loop)}
+sk.max=DUR;sk.oninput=()=>{Tm=+sk.value;playing=false};
+document.getElementById('pl').onclick=()=>playing=!playing;
+document.getElementById('rs').onclick=()=>{Tm=0;playing=true};
+Promise.all([load('../assets/off/bg7.jpg'),STORE.logo?load(STORE.logo):Promise.resolve(null)]
+ .concat(['p1','p2','p3','p4','p5','p6','p7','p8'].map(n=>load('../assets/off/hq6/'+n+'.png')))
+ .concat([...new Set(PRODUCTS.filter(p=>p.img).map(p=>p.img))].map(n=>load('../assets/aldi_nord/'+n+'.png').then(im=>({n,im}))))).then(async r=>{
+  S.BG=r[0];S.LOGO=r[1];S.P={};['p1','p2','p3','p4','p5','p6','p7','p8'].forEach((n,i)=>S.P[n]=r[2+i]);
+  S.IMG={};r.slice(10).forEach(o=>S.IMG[o.n]=o.im);
+  S.META={p3:{white:[60,1136,1612,1904]},p7:{white:[732,752,1536,1472]}};
+  S.BGC=buildBackground();
+  window.ready=true;window.render=render;window.DUR=DUR;if(!CAP)requestAnimationFrame(loop);
+});
+</script></body></html>
