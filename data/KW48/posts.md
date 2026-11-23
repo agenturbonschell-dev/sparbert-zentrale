@@ -9,3 +9,7 @@
 | 2026-11-23 12:55 | Aldi Nord | TikTok | 6b0437d26b6de502825e8c01 | über Buffer, isAiGenerated gesetzt |
 | 2026-11-22 14:42 | Lidl | TikTok | 7711006270660168992 | vom Eigentümer selbst gepostet (Vorversion), daher kein weiterer Lidl-Post auf TikTok |
 | 2026-11-23 00:57 | Kaufland | TikTok | 7711164579438464288 | vom Eigentümer selbst gepostet |
+| 2026-11-23 19:38 | Netto | Instagram | 17914590966586293 | Reel (Tempo 2,7 s je Produkt); der geplante Slot 14:30 schlug fehl (Zeitplan-Zugriff verweigert), nachgeholt |
+| 2026-11-23 19:38 | Netto | TikTok | 6b04962683d02a16338c112b | über Buffer; TikTok kürzt den Namen im @-Tag |
+| 2026-11-23 19:5x | REWE | Instagram | 17903887632655699 | Reel, ohne Tag (Handle offen) |
+| 2026-11-23 19:58 | REWE | TikTok | 6b049ad3546af97ff752baac | über Buffer |
