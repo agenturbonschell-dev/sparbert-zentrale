@@ -6,7 +6,7 @@ ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TAGE=['Mo.','Di.','Mi.','Do.','Fr.','Sa.','So.']
 def build_html(hid,data,out_html):
     cfg={r['id']:r for r in json.load(open(f'{ROOT}/auto/retailers.json'))['retailers']}[hid]
-    tpl={'kaufland':'angebote_kaufland','lidl':'angebote_lidl'}.get(hid,'angebote_kaufland')
+    tpl=f'angebote_{hid}' if os.path.exists(f'{ROOT}/templates/angebote_{hid}.html') else 'angebote_kaufland'
     s=open(f'{ROOT}/templates/{tpl}.html').read()
     v=datetime.date.fromisoformat(data['von']);b=datetime.date.fromisoformat(data['bis'])
     date_txt=f'gültig {v.day}. – {b.day}.{b.month:02d}.{b.year}'
