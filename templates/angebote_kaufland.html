@@ -285,24 +285,24 @@ function drawCTA(c,t){
   const k=outBack(clamp(u/.55)),P=PANEL;
   c.save();c.translate(P.x+P.w/2,P.y+P.h/2);c.scale(k,k);c.translate(-P.w/2,-P.h/2);
   c.fillStyle='#fffaf0';rr(c,0,0,P.w,P.h,34);c.fill();c.lineWidth=10;c.strokeStyle=INK;c.stroke();
-  stext(c,'Gefällt dir?',P.w/2,66,66,'#ffd23a','center',.16);
+  stext(c,'Gefällt dir?',P.w/2,98,62,'#ffd23a','center',.16);
   // Folgen-Button (pulsiert, wird bei 1,5 s "gedrückt")
   const pr=clamp((u-1.5)/.12),press=pr<1?pr:1-clamp((u-1.62)/.18);
   const pulse=1+.035*Math.sin(u*9)*(u<1.5?1:0)-.07*press;
-  c.save();c.translate(P.w/2,176);c.scale(pulse,pulse);
-  c.fillStyle='#e8201a';rr(c,-310,-56,620,112,56);c.fill();c.lineWidth=7;c.strokeStyle=INK;c.stroke();
-  c.fillStyle='rgba(255,255,255,.22)';rr(c,-290,-46,580,30,15);c.fill();
+  c.save();c.translate(P.w/2,200);c.scale(pulse,pulse);
+  c.fillStyle='#e8201a';rr(c,-300,-50,600,100,50);c.fill();c.lineWidth=7;c.strokeStyle=INK;c.stroke();
+  c.fillStyle='rgba(255,255,255,.22)';rr(c,-282,-41,564,26,13);c.fill();
   const done=u>1.62;stext(c,done?'FOLGST DU ✓':'+  FOLGEN',0,4,done?56:62,'#fff','center',.14);c.restore();
   c.fillStyle='#6a3d22';c.font=`800 33px ${FONT}`;c.textAlign='center';c.textBaseline='middle';
-  c.fillText('Jede Woche die besten Angebote',P.w/2,272);
+  c.fillText('Jede Woche die besten Angebote',P.w/2,288);
   const chip=(x,y,txt,col,d)=>{const q=outBack(clamp((u-d)/.4));if(q<=0)return;c.save();c.translate(x,y);c.scale(q,q);
     c.font=`900 30px ${FONT}`;const w=c.measureText(txt).width+54;rr(c,-w/2,-31,w,62,31);c.fillStyle=col;c.fill();c.lineWidth=6;c.strokeStyle=INK;c.stroke();
     c.fillStyle='#fff';c.textAlign='center';c.textBaseline='middle';c.fillText(txt,0,3);c.restore()};
-  chip(P.w/2-150,350,'SPEICHERN','#1f7ae0',.9);chip(P.w/2+150,350,'TEILEN','#1fa35a',1.05);
+  chip(P.w/2-150,352,'SPEICHERN','#1f7ae0',.9);chip(P.w/2+150,352,'TEILEN','#1fa35a',1.05);
   c.fillStyle='#14171f';c.font=`900 35px ${FONT}`;c.textAlign='center';
-  c.fillText('Welches Angebot holst du dir?',P.w/2,430);
-  c.fillStyle='#6a3d22';c.font=`700 29px ${FONT}`;c.fillText('Schreib es in die Kommentare',P.w/2,472);
-  stext(c,HANDLE,P.w/2,520,40,'#e8201a','center',.16);
+  c.fillText('Welches Angebot holst du dir?',P.w/2,420);
+  c.fillStyle='#6a3d22';c.font=`700 29px ${FONT}`;c.fillText('Schreib es in die Kommentare',P.w/2,458);
+  stext(c,HANDLE,P.w/2,504,40,'#e8201a','center',.16);
   c.restore();
 }
 /* ---------- Render ---------- */
