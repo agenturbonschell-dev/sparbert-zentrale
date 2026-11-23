@@ -14,7 +14,13 @@ def make(retailer,data,variant=0,platform='ig'):
            f"🛒 Nicht verpassen! {R['name']}-Angebote {d(von)}–{d(bis)}"]
     lines=[hooks[variant%len(hooks)],'']
     for p in prods[:6]:
-        price=p.get('card') or p['price']; cond=f" (mit {R['card']})" if p.get('card') and R['card'] else ''
+        price=p.get('card') or p['price']
+        parts=[]
+        if p.get('card') and R['card']:parts.append(f"mit {R['card']}")
+        v=p.get('valid') or ''
+        if v and not v.startswith('gültig bis Sa') and not (v.startswith('Mo.') and v.rstrip('.').endswith(f"Sa. {bis[8:]}.{bis[5:7]}")):parts.append(v.replace('gültig ','').rstrip('.')) # Tages-Bedingung zeigen
+        if 'max.' in (p.get('unit') or ''):parts.append(p['unit'].split('·')[-1].strip())
+        cond=f" ({', '.join(parts)})" if parts else ''
         lines.append(f"• {p['brand'].title()} {p['name']}: {price} €{cond}")
     lines+=['',f"📅 Gültig {d(von)} bis {d(bis)}",
             f"Unbezahlte Werbung / Kostenlose Werbung für {ref}",
