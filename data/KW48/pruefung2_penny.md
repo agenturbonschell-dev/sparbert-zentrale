@@ -34,3 +34,11 @@ Alle Preise, Altpreise, Rabatte, Mengen und Pfand wurden auf dem Seitenbild gele
 3. Bauer: "bis So. 29.11." nur in Metadaten, nicht auf der Seite; Prospekt und Seite sagen bis Sa 28.11.; Beschreibung widerspricht sich.
 
 FREIGABE: nein – Gültigkeit Pepsi und Bahlsen falsch (Do. 26.11. statt Mi. 25.11.), Bauer "bis So. 29.11." auf der Seite nicht belegt und widerspricht der Beschreibung (23.–28.11.); Preise, App-Bedingungen, Rabatte, Mengen und Pfand aller 15 Produkte stimmen
+
+## Nachprüfung (23.11.2026, nach Korrektur)
+- Dateien: out/penny_KW48_ton.mp4 (20:07) ist neuer als penny_products.json (12:41) und templates/angebote_penny.html (13:00); Länge 50,7 s (INTRO 0,6 + 16 Produkte, PER 2,7, CARD_EXTRA 0,4 je App-Produkt, TAIL 4,4).
+- JSON: Pepsi "Do. 26. – Sa. 28.11.", Bahlsen "Do. 26. – Sa. 28.11.", Bauer "Mo. 23. – Sa. 28.11." – korrekt.
+- Frames (Bauer 2,4 s; Wagner 11,7 s; Coca-Cola 23,7 s; Pepsi 26,8 s; Bahlsen 39,2 s; Persil 41,9 s): Tage im Bild korrekt (Pepsi und Bahlsen Do. 26.–Sa. 28.11., Bauer Mo. 23.–Sa. 28.11.); App-Plakette "Preis mit Penny-App" mit "ohne App"-Preis bei Bauer, Wagner, Coca-Cola, Pepsi, Persil; Pfand bei Coca-Cola (0,25 €) und Pepsi (1,50 €) sichtbar; UVP nur bei Bauer, Coca-Cola, Bahlsen (Quelle nennt UVP), Pepsi, Wagner und Persil ohne UVP; Bahlsen ohne App-Plakette (kein App-Preis); kein abgeschnittener Text.
+- Beschreibung (caption.py penny … 0): @pennydeutschland, "Unbezahlte Werbung / Kostenlose Werbung für @pennydeutschland", Gültigkeit 23.11. bis 28.11., "Preise können je Markt abweichen", Hinweis "teils nur mit App/Karte oder an bestimmten Tagen", 5 Hashtags, Genannte Produkte alle Mo.–Sa. (passt); einziges Sonderzeichen ist das Emoji in der Titelzeile (vom Generator vorgesehen).
+
+FREIGABE: ja
