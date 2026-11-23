@@ -50,14 +50,14 @@ def music(dur,bpm=104,outro=None,swing=.2):
         in_out=outro is not None and b*bar>=outro-.01
         for s in (0,6,10) if not in_out else (0,3,6,8,10,14):
             put(out,kick(),T(b,s),.8)
-        for s in (4,12):put(out,snare(),T(b,s),.6);put(out,clap(),T(b,s),.3)
-        for s in range(16):put(out,hat() if s%2==0 else shaker(),T(b,s),.3 if s%4==0 else .2)
+        for s in (4,12):put(out,snare(),T(b,s),.4);put(out,clap(),T(b,s),.15)
+        for s in range(16):put(out,hat() if s%2==0 else shaker(),T(b,s),.12 if s%4==0 else .07)
         for s,o in ((0,0),(3,0),(6,12),(8,0),(10,0),(14,12)):
             put(out,saw(n2f(rt+o),st*2.2,.16,.12),T(b,s),.5)
-        for s in (2,5,9,13):put(out,stab([m+12 for m in ch],st*1.6,.09),T(b,s),.3)
+        for s in (2,5,9,13):put(out,stab(ch,st*2.2,.14),T(b,s),.3)
         if b>=2 and not in_out:
             for j,deg in enumerate(lead[b%2]):
-                if deg is not None:put(out,pluck(n2f(pent[deg]),st*2,.1),T(b,j*2),.22)
+                if deg is not None:put(out,pluck(n2f(pent[deg]-12),st*2,.14),T(b,j*2),.2)
     if outro:
         put(out,riser(1.0),outro-1.0,.8);put(out,crash(),outro,.6)
     f=int(.8*SR);out[:f]*=np.linspace(0,1,f);out[-int(1.5*SR):]*=np.linspace(1,0,int(1.5*SR))
@@ -92,11 +92,11 @@ def sfxtrack(cfg):
     put(out,swipe(),0.15,.8)
     for i,t0 in enumerate(S):
         v=i%3                                           # abwechselnd drei Klangfarben
-        put(out,thump(),t0+.04,.6)
-        put(out,[click,tap,swipe][v](),t0+.05,[.9,.8,.7][v])       # Karte erscheint
-        put(out,blip(),t0+.75,.5)                                 # Sparbert poppt rein
-        put(out,sparkle(3 if v!=1 else 2,[2093,2349,2637][v]),t0+1.1,.5)  # Preis
-        if C[i]:put(out,click(.9),t0+1.5,.7);put(out,notif()[:int(SR*.5)],t0+1.62,.4)  # Karten-Hinweis
+        put(out,thump(),t0+.04,.4)
+        put(out,[click,tap,swipe][v](),t0+.05,[.45,.5,.4][v])       # Karte erscheint
+        put(out,blip(),t0+.75,.3)                                 # Sparbert poppt rein
+        put(out,sparkle(3 if v!=1 else 2,[1568,1760,1976][v]),t0+1.1,.3)  # Preis
+        if C[i]:put(out,click(.7),t0+1.5,.4);put(out,notif()[:int(SR*.5)],t0+1.62,.25)  # Karten-Hinweis
     o=cfg.get('outro')
     if o:
         put(out,swipe(),o+.1,.8);put(out,thump(),o+.15,.7);put(out,sparkle(4,2093),o+.2,.6)
@@ -109,5 +109,5 @@ if __name__=='__main__':
     cfg=json.load(open(sys.argv[1]));out=sys.argv[2];os.makedirs(out,exist_ok=True)
     m=finish(music(cfg['dur'],outro=cfg.get('outro')),.5);s=finish(sfxtrack(cfg),.8)
     sfx.save(f'{out}/music.wav',m);sfx.save(f'{out}/sfx.wav',s)
-    mix=np.tanh((m*.45+s*.9))/np.tanh(1);sfx.save(f'{out}/mix.wav',finish(mix,.85))
+    mix=np.tanh((m*.55+s*.5))/np.tanh(1);sfx.save(f'{out}/mix.wav',finish(mix,.85))
     print('ok',cfg['dur'],'s')
