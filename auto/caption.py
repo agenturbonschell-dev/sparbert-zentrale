@@ -26,6 +26,8 @@ def make(retailer,data,variant=0,platform='ig'):
             f"Unbezahlte Werbung / Kostenlose Werbung für {ref}",
             "Preise können je Markt abweichen. Angebote teils nur mit App/Karte oder an bestimmten Tagen.",'']
     tags=cfg['hashtags_basis']+cfg['hashtags_je_haendler'][retailer]
-    return '\n'.join(lines)+' '.join(tags[:15])
+    # Instagram: höchstens 5 Hashtags (Händler-Tags zuerst, dann die stärksten Basis-Tags)
+    pick=[t for t in cfg['hashtags_je_haendler'][retailer]]+[t for t in cfg['hashtags_basis'] if t not in cfg['hashtags_je_haendler'][retailer]]
+    return '\n'.join(lines)+' '.join(pick[:5])
 if __name__=='__main__':
     print(make(sys.argv[1],load(sys.argv[2]),int(sys.argv[3]) if len(sys.argv)>3 else 0))
